@@ -11,5 +11,6 @@
     #include <stdlib.h>
 
 void analyse_events(sfRenderWindow *window, sfEvent event);
+void close_window(sfRenderWindow* window);
 
 #endif

@@ -8,6 +8,7 @@
 #include <SFML/Graphics.h>
 #include <stdlib.h>
 #include "include/my.h"
+#include "include/hunter.h"
 
 int handle_event(sfEvent *event)
 {
@@ -25,7 +26,7 @@ void analyse_events(sfRenderWindow *window, sfEvent event)
     while (sfRenderWindow_pollEvent(window, &event)) {
         handle_event(&event);
         if (event.type == sfEvtClosed)
-            sfRenderWindow_close(window);
+            close_window(window);
         if (event.type == sfEvtMouseButtonPressed)
             manage_mouse_click(event.mouseButton);
     }

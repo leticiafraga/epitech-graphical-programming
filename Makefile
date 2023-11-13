@@ -7,6 +7,7 @@
 
 SRC	=	main.c \
 		analyse_events.c \
+		close_window.c \
 		lib/mini_printf.c \
 		lib/my_putchar.c \
 		lib/my_putnbr.c \
