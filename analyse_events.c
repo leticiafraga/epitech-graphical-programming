@@ -10,24 +10,18 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-int handle_event(sfEvent *event)
+void manage_mouse_click(sfMouseButtonEvent event, sfIntRect *rect)
 {
-    if (event->type == sfEvtKeyReleased) {
-    }
+    if (sfIntRect_contains(rect, event.x, event.y) == sfTrue)
+        mini_printf("DUCK\n");
 }
 
-void manage_mouse_click(sfMouseButtonEvent event)
-{
-    mini_printf("Mouse x=%d y=%d\n", event.x, event.y);
-}
-
-void analyse_events(sfRenderWindow *window, sfEvent event)
+void analyse_events(sfRenderWindow *window, sfEvent event, sfIntRect *rect)
 {
     while (sfRenderWindow_pollEvent(window, &event)) {
-        handle_event(&event);
         if (event.type == sfEvtClosed)
             close_window(window);
         if (event.type == sfEvtMouseButtonPressed)
-            manage_mouse_click(event.mouseButton);
+            manage_mouse_click(event.mouseButton, rect);
     }
 }

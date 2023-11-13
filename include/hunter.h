@@ -10,7 +10,7 @@
     #include <SFML/Graphics.h>
     #include <stdlib.h>
 
-void analyse_events(sfRenderWindow *window, sfEvent event);
+void analyse_events(sfRenderWindow *window, sfEvent event, sfIntRect *rect);
 void close_window(sfRenderWindow* window);
 void move_rect(sfIntRect *rect, int offset, int max_value);
 
