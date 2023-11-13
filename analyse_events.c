@@ -13,8 +13,10 @@
 int manage_mouse_click(sfMouseButtonEvent event, sfSprite *sprite)
 {
     sfFloatRect pos = sfSprite_getGlobalBounds(sprite);
+    sfVector2f offset = {0, rand() % 500};
 
     if (sfFloatRect_contains(&pos, event.x, event.y) == sfTrue) {
+        sfSprite_setPosition(sprite, offset);
         return 1;
     }
     return 0;

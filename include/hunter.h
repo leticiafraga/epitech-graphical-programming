@@ -17,5 +17,6 @@ sfText *display_score(int score);
 int analyse_events(sfRenderWindow *window, sfEvent event, sfSprite *sprite);
 void close_window(sfRenderWindow* window);
 void move_rect(sfIntRect *rect, int offset, int max_value);
+sfSprite *init_sprite(void);
 
 #endif
