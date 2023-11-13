@@ -12,5 +12,6 @@
 
 void analyse_events(sfRenderWindow *window, sfEvent event);
 void close_window(sfRenderWindow* window);
+void move_rect(sfIntRect *rect, int offset, int max_value);
 
 #endif
