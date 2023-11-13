@@ -36,14 +36,16 @@ void destroy(sfSprite *sprite, sfTexture *texture, sfRenderWindow *window)
     sfRenderWindow_destroy(window);
 }
 
-void handle_move(sfIntRect *rect, sfClock *clock)
+void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock)
 {
     sfTime time;
+    sfVector2f offset = {5, 0};
 
     time = sfClock_getElapsedTime(clock);
     if (time.microseconds / 1000000.0 > 0.5) {
         sfClock_restart(clock);
         move_rect(rect, 110, 330);
+        sfSprite_move(sprite, offset);
     }
 }
 
@@ -59,13 +61,13 @@ int main(void)
 
     window = sfRenderWindow_create(mode, "ducks", sfDefaultStyle, NULL);
     while (sfRenderWindow_isOpen(window)) {
-        handle_move(rect[0], clock);
+        handle_move(sprite, rect[0], clock);
         sfRenderWindow_clear(window, sfBlack);
         sfSprite_setTexture(sprite, texture, sfTrue);
         sfSprite_setTextureRect(sprite, *rect[0]);
         sfRenderWindow_drawSprite(window, sprite, NULL);
         sfRenderWindow_display(window);
-        analyse_events(window, event, rect[1]);
+        analyse_events(window, event, sprite);
     }
     destroy(sprite, texture, window);
     return 0;
