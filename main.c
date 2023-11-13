@@ -10,18 +10,15 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-sfUint8 *create_pixels(void)
+sfIntRect *display_rect(void)
 {
-    int n = 800 * 600 * 4;
-    sfUint8 *pixels = malloc(800 * 600 * 32 / 8);
+    sfIntRect *rect = malloc(sizeof(sfIntRect));
 
-    for (int i = 0; i < n; i += 4) {
-        pixels[i] = (i / 100) % 255;
-        pixels[i + 1] = 50;
-        pixels[i + 2] = 0;
-        pixels[i + 3] = 255;
-    }
-    return pixels;
+    rect->top = 0;
+    rect->left = 0;
+    rect->width = 110;
+    rect->height = 110;
+    return rect;
 }
 
 void destroy(sfSprite* sprite, sfTexture* texture, sfRenderWindow* window)
@@ -35,17 +32,17 @@ int main(void)
 {
     sfVideoMode mode = {800, 600, 32};
     sfRenderWindow* window;
-    sfUint8 *pixels = create_pixels();
+    sfIntRect *rect = display_rect();
     sfTexture* texture;
     sfSprite* sprite;
     sfEvent event;
 
-    texture = sfTexture_create(800, 600);
+    texture = sfTexture_createFromFile("assets/duck.png", NULL);
     sprite = sfSprite_create();
     sfSprite_setTexture(sprite, texture, sfTrue);
+    sfSprite_setTextureRect(sprite, *rect);
     window = sfRenderWindow_create(mode, "SFML window", sfDefaultStyle, NULL);
     while (sfRenderWindow_isOpen(window)) {
-        sfTexture_updateFromPixels(texture, pixels, 800, 600, 0, 0);
         sfRenderWindow_drawSprite(window, sprite, NULL);
         sfRenderWindow_display(window);
         analyse_events(window, event);
