@@ -8,7 +8,9 @@
 SRC	=	main.c				\
 		analyse_events.c	\
 		move_rect.c			\
+		render.c			\
 		close_window.c		\
+		display_score.c		\
 		lib/mini_printf.c	\
 		lib/my_nbrtostr.c	\
 		lib/my_putchar.c	\
