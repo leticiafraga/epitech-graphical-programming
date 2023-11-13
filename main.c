@@ -49,6 +49,32 @@ void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock)
     }
 }
 
+sfText *display_score(int score)
+{
+    sfFont* font;
+    sfText* text;
+    sfVector2f offset = {700, 0};
+
+    font = sfFont_createFromFile("arial.ttf");
+    if (!font)
+        return EXIT_FAILURE;
+    text = sfText_create();
+    sfText_setString(text, my_nbrtostr(score));
+    sfText_setFont(text, font);
+    sfText_setCharacterSize(text, 50);
+    sfText_setPosition(text, offset);
+    return text;
+}
+
+static void render(sfRenderWindow *window, sfSprite *sprite,
+    sfTexture *texture, sfIntRect **rect)
+{
+    sfRenderWindow_clear(window, sfBlack);
+    sfSprite_setTexture(sprite, texture, sfTrue);
+    sfSprite_setTextureRect(sprite, *rect[0]);
+    sfRenderWindow_drawSprite(window, sprite, NULL);
+}
+
 int main(void)
 {
     sfVideoMode mode = {800, 600, 32};
@@ -58,16 +84,15 @@ int main(void)
     sfSprite *sprite = sfSprite_create();
     sfEvent event;
     sfClock *clock = sfClock_create();
+    int score = 0;
 
     window = sfRenderWindow_create(mode, "ducks", sfDefaultStyle, NULL);
     while (sfRenderWindow_isOpen(window)) {
         handle_move(sprite, rect[0], clock);
-        sfRenderWindow_clear(window, sfBlack);
-        sfSprite_setTexture(sprite, texture, sfTrue);
-        sfSprite_setTextureRect(sprite, *rect[0]);
-        sfRenderWindow_drawSprite(window, sprite, NULL);
+        render(window, sprite, texture, rect);
+        sfRenderWindow_drawText(window, display_score(score), NULL);
         sfRenderWindow_display(window);
-        analyse_events(window, event, sprite);
+        score += analyse_events(window, event, sprite);
     }
     destroy(sprite, texture, window);
     return 0;

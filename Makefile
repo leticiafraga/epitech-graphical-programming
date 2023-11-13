@@ -10,9 +10,12 @@ SRC	=	main.c				\
 		move_rect.c			\
 		close_window.c		\
 		lib/mini_printf.c	\
+		lib/my_nbrtostr.c	\
 		lib/my_putchar.c	\
 		lib/my_putnbr.c		\
 		lib/my_putstr.c		\
+		lib/my_revstr.c		\
+		lib/my_strcat.c		\
 		lib/my_strlen.c
 
 OBJ	=	$(SRC:.c=.o)
