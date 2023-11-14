@@ -27,6 +27,7 @@ void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
 {
     sfTime time;
     sfVector2f offset = {10 + score, 0};
+    sfFloatRect pos = sfSprite_getGlobalBounds(sprite);
     float seconds;
 
     time = sfClock_getElapsedTime(clock);
@@ -35,6 +36,8 @@ void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
         sfClock_restart(clock);
         move_rect(rect, 110, 330);
         sfSprite_move(sprite, offset);
+        if (pos.left > 700)
+            init_sprite(sprite);
     }
 }
 
@@ -44,7 +47,7 @@ int main(void)
     sfRenderWindow *window;
     sfIntRect *rect = display_rect();
     sfTexture *texture = sfTexture_createFromFile("assets/duck.png", NULL);
-    sfSprite *sprite = init_sprite();
+    sfSprite *sprite = new_sprite();
     sfEvent event;
     sfClock *clock = sfClock_create();
     int score = 0;
@@ -57,6 +60,6 @@ int main(void)
         sfRenderWindow_display(window);
         score += analyse_events(window, event, sprite);
     }
-    destroy(sprite, texture, window);
+    destroy(sprite, texture, window, rect);
     return 0;
 }

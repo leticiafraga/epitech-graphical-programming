@@ -12,11 +12,13 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-void destroy(sfSprite *sprite, sfTexture *texture, sfRenderWindow *window)
+void destroy(sfSprite *sprite, sfTexture *texture,
+    sfRenderWindow *window, sfIntRect *rect)
 {
     sfSprite_destroy(sprite);
     sfTexture_destroy(texture);
     sfRenderWindow_destroy(window);
+    free(rect);
 }
 
 void render(sfRenderWindow *window, sfSprite *sprite,
@@ -28,11 +30,17 @@ void render(sfRenderWindow *window, sfSprite *sprite,
     sfRenderWindow_drawSprite(window, sprite, NULL);
 }
 
-sfSprite *init_sprite(void)
+void init_sprite(sfSprite *sprite)
 {
-    sfSprite *sprite = sfSprite_create();
     sfVector2f init_sprite = {-50, rand() % 500};
 
     sfSprite_setPosition(sprite, init_sprite);
+}
+
+sfSprite *new_sprite(void)
+{
+    sfSprite *sprite = sfSprite_create();
+
+    init_sprite(sprite);
     return sprite;
 }
