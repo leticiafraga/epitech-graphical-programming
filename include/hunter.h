@@ -22,4 +22,11 @@ void move_rect(sfIntRect *rect, int offset, int max_value);
 void init_sprite(sfSprite *sprite);
 sfSprite *new_sprite(void);
 
+typedef struct game_parts {
+    sfVideoMode mode;
+    sfRenderWindow *window;
+    sfEvent event;
+    sfClock *clock;
+} game_parts;
+
 #endif

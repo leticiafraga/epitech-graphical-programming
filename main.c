@@ -41,26 +41,34 @@ void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
     }
 }
 
+game_parts *init_game(void)
+{
+    game_parts *game = malloc(sizeof(game_parts));
+    sfVideoMode mode = {800, 600, 32};
+
+    game->clock = sfClock_create();
+    game->window = sfRenderWindow_create(
+        mode, "ducks", sfDefaultStyle, NULL);
+    return game;
+}
+
 int main(void)
 {
-    sfVideoMode mode = {800, 600, 32};
-    sfRenderWindow *window;
+    game_parts *game = init_game();
     sfIntRect *rect = display_rect();
     sfTexture *texture = sfTexture_createFromFile("assets/duck.png", NULL);
     sfSprite *sprite = new_sprite();
-    sfEvent event;
-    sfClock *clock = sfClock_create();
     sfText* text = init_text();
     int score = 0;
 
-    window = sfRenderWindow_create(mode, "ducks", sfDefaultStyle, NULL);
-    while (sfRenderWindow_isOpen(window)) {
-        handle_move(sprite, rect, clock, score);
-        render(window, sprite, texture, rect);
-        sfRenderWindow_drawText(window, display_score(text, score), NULL);
-        sfRenderWindow_display(window);
-        score += analyse_events(window, event, sprite);
+    while (sfRenderWindow_isOpen(game->window)) {
+        handle_move(sprite, rect, game->clock, score);
+        render(game->window, sprite, texture, rect);
+        sfRenderWindow_drawText(
+            game->window, display_score(text, score), NULL);
+        sfRenderWindow_display(game->window);
+        score += analyse_events(game->window, game->event, sprite);
     }
-    destroy(sprite, texture, window, rect);
+    destroy(sprite, texture, game->window, rect);
     return 0;
 }
