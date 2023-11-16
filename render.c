@@ -12,22 +12,22 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-void destroy(sfSprite *sprite, sfTexture *texture,
-    sfRenderWindow *window, sfIntRect *rect)
+void destroy(game_parts *game, duck *d)
 {
-    sfSprite_destroy(sprite);
-    sfTexture_destroy(texture);
-    sfRenderWindow_destroy(window);
-    free(rect);
+    sfSprite_destroy(d->sprite);
+    sfTexture_destroy(d->texture);
+    sfClock_destroy(game->clock);
+    sfRenderWindow_destroy(game->window);
+    free(game);
+    free(d->rect);
 }
 
-void render(sfRenderWindow *window, sfSprite *sprite,
-    sfTexture *texture, sfIntRect *rect)
+void render(sfRenderWindow *window, duck *d)
 {
     sfRenderWindow_clear(window, sfBlue);
-    sfSprite_setTexture(sprite, texture, sfTrue);
-    sfSprite_setTextureRect(sprite, *rect);
-    sfRenderWindow_drawSprite(window, sprite, NULL);
+    sfSprite_setTexture(d->sprite, d->texture, sfTrue);
+    sfSprite_setTextureRect(d->sprite, *(d->rect));
+    sfRenderWindow_drawSprite(window, d->sprite, NULL);
 }
 
 void init_sprite(sfSprite *sprite)

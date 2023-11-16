@@ -12,17 +12,6 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-sfIntRect *display_rect(void)
-{
-    sfIntRect *rect = malloc(sizeof(sfIntRect));
-
-    rect->top = 0;
-    rect->left = 0;
-    rect->width = 110;
-    rect->height = 110;
-    return rect;
-}
-
 void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
 {
     sfTime time;
@@ -41,34 +30,21 @@ void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
     }
 }
 
-game_parts *init_game(void)
-{
-    game_parts *game = malloc(sizeof(game_parts));
-    sfVideoMode mode = {800, 600, 32};
-
-    game->clock = sfClock_create();
-    game->window = sfRenderWindow_create(
-        mode, "ducks", sfDefaultStyle, NULL);
-    return game;
-}
-
 int main(void)
 {
     game_parts *game = init_game();
-    sfIntRect *rect = display_rect();
-    sfTexture *texture = sfTexture_createFromFile("assets/duck.png", NULL);
-    sfSprite *sprite = new_sprite();
+    duck *d = init_duck();
     sfText* text = init_text();
     int score = 0;
 
     while (sfRenderWindow_isOpen(game->window)) {
-        handle_move(sprite, rect, game->clock, score);
-        render(game->window, sprite, texture, rect);
+        handle_move(d->sprite, d->rect, game->clock, score);
+        render(game->window, d);
         sfRenderWindow_drawText(
             game->window, display_score(text, score), NULL);
         sfRenderWindow_display(game->window);
-        score += analyse_events(game->window, game->event, sprite);
+        score += analyse_events(game->window, game->event, d->sprite);
     }
-    destroy(sprite, texture, game->window, rect);
+    destroy(game, d);
     return 0;
 }
