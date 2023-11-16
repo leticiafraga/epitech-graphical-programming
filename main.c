@@ -50,13 +50,14 @@ int main(void)
     sfSprite *sprite = new_sprite();
     sfEvent event;
     sfClock *clock = sfClock_create();
+    sfText* text = init_text();
     int score = 0;
 
     window = sfRenderWindow_create(mode, "ducks", sfDefaultStyle, NULL);
     while (sfRenderWindow_isOpen(window)) {
         handle_move(sprite, rect, clock, score);
         render(window, sprite, texture, rect);
-        sfRenderWindow_drawText(window, display_score(score), NULL);
+        sfRenderWindow_drawText(window, display_score(text, score), NULL);
         sfRenderWindow_display(window);
         score += analyse_events(window, event, sprite);
     }

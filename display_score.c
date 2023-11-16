@@ -12,21 +12,28 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-sfText *display_score(int score)
+sfText* init_text(void)
 {
     sfFont* font;
     sfText* text;
     sfVector2f offset = {700, 0};
-    char *str = my_nbrtostr(score);
 
     font = sfFont_createFromFile("arial.ttf");
     if (!font)
         return 0;
     text = sfText_create();
-    sfText_setString(text, str);
     sfText_setFont(text, font);
     sfText_setCharacterSize(text, 50);
     sfText_setPosition(text, offset);
+    return text;
+}
+
+sfText *display_score(sfText* text, int score)
+{
+    sfVector2f offset = {700, 0};
+    char *str = my_nbrtostr(score);
+
+    sfText_setString(text, str);
     free(str);
     return text;
 }
