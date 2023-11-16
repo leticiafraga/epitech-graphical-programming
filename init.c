@@ -34,12 +34,30 @@ game_parts *init_game(void)
     return game;
 }
 
-duck *init_duck(void)
+target *init_duck(void)
 {
-    duck *d = malloc(sizeof(duck));
+    target *d = malloc(sizeof(target));
 
     d->rect = display_rect();
     d->texture = sfTexture_createFromFile("assets/duck.png", NULL);
     d->sprite = new_sprite();
+    return d;
+}
+
+target *init_menu(void)
+{
+    target *d = malloc(sizeof(target));
+    sfIntRect *rect = malloc(sizeof(sfIntRect));
+    sfSprite *sprite = sfSprite_create();
+    sfVector2f init_sprite = {200, 200};
+
+    sfSprite_setPosition(sprite, init_sprite);
+    rect->top = 0;
+    rect->left = 0;
+    rect->width = 110;
+    rect->height = 110;
+    d->rect = rect;
+    d->texture = sfTexture_createFromFile("assets/start.png", NULL);
+    d->sprite = sprite;
     return d;
 }

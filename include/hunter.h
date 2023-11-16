@@ -17,19 +17,21 @@ typedef struct game_parts {
     sfClock *clock;
 } game_parts;
 
-typedef struct duck {
+typedef struct target {
     sfIntRect *rect;
     sfTexture *texture;
     sfSprite *sprite;
-} duck;
+} target;
 
-void destroy(game_parts *game, duck *d);
-void render(sfRenderWindow *window, duck *d);
+void destroy(game_parts *game, target *d);
+void render(sfRenderWindow *window, target *d);
 game_parts *init_game(void);
-duck *init_duck(void);
+target *init_duck(void);
 sfText* init_text(void);
+target *init_menu(void);
 sfText *display_score(sfText *text, int score);
-int analyse_events(sfRenderWindow *window, sfEvent event, sfSprite *sprite);
+int analyse_events(game_parts *game, sfSprite *sprite);
+int analyse_menu_events(game_parts *game, target *menu);
 void close_window(sfRenderWindow* window);
 void move_rect(sfIntRect *rect, int offset, int max_value);
 void init_sprite(sfSprite *sprite);

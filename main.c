@@ -30,20 +30,41 @@ void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
     }
 }
 
+int handle_play(game_parts *game, target *d, sfText *text, int score)
+{
+    handle_move(d->sprite, d->rect, game->clock, score);
+    render(game->window, d);
+    sfRenderWindow_drawText(
+        game->window, display_score(text, score), NULL);
+    sfRenderWindow_display(game->window);
+    return analyse_events(game, d->sprite);
+}
+
+int handle_menu(game_parts *game, target *menu)
+{
+    render_menu(game->window, menu);
+    sfRenderWindow_display(game->window);
+    return analyse_menu_events(game, menu);
+}
+
 int main(void)
 {
     game_parts *game = init_game();
-    duck *d = init_duck();
+    target *d = init_duck();
+    target *menu = init_menu();
     sfText* text = init_text();
     int score = 0;
+    int state = 0;
 
     while (sfRenderWindow_isOpen(game->window)) {
-        handle_move(d->sprite, d->rect, game->clock, score);
-        render(game->window, d);
-        sfRenderWindow_drawText(
-            game->window, display_score(text, score), NULL);
-        sfRenderWindow_display(game->window);
-        score += analyse_events(game->window, game->event, d->sprite);
+        switch (state) {
+            case 0:
+                state = handle_menu(game, menu);
+                break;
+            case 1:
+                score += handle_play(game, d, text, score);
+                break;
+        }
     }
     destroy(game, d);
     return 0;

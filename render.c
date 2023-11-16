@@ -12,7 +12,7 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-void destroy(game_parts *game, duck *d)
+void destroy(game_parts *game, target *d)
 {
     sfSprite_destroy(d->sprite);
     sfTexture_destroy(d->texture);
@@ -22,7 +22,7 @@ void destroy(game_parts *game, duck *d)
     free(d->rect);
 }
 
-void render(sfRenderWindow *window, duck *d)
+void render(sfRenderWindow *window, target *d)
 {
     sfRenderWindow_clear(window, sfBlue);
     sfSprite_setTexture(d->sprite, d->texture, sfTrue);
