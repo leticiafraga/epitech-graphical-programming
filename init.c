@@ -31,6 +31,7 @@ game_parts *init_game(void)
     game->clock = sfClock_create();
     game->window = sfRenderWindow_create(
         mode, "ducks", sfDefaultStyle, NULL);
+    sfRenderWindow_setFramerateLimit(game->window, 45);
     return game;
 }
 
@@ -49,7 +50,7 @@ target *init_menu(void)
     target *d = malloc(sizeof(target));
     sfIntRect *rect = malloc(sizeof(sfIntRect));
     sfSprite *sprite = sfSprite_create();
-    sfVector2f init_sprite = {200, 200};
+    sfVector2f init_sprite = {400 - 55, 300 - 55};
 
     sfSprite_setPosition(sprite, init_sprite);
     rect->top = 0;
@@ -58,6 +59,16 @@ target *init_menu(void)
     rect->height = 110;
     d->rect = rect;
     d->texture = sfTexture_createFromFile("assets/start.png", NULL);
+    d->sprite = sprite;
+    return d;
+}
+
+target *init_cursor(game_parts *game)
+{
+    target *d = malloc(sizeof(target));
+    sfSprite *sprite = sfSprite_create();
+
+    d->texture = sfTexture_createFromFile("assets/target.png", NULL);
     d->sprite = sprite;
     return d;
 }

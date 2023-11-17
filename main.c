@@ -15,7 +15,7 @@
 void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
 {
     sfTime time;
-    sfVector2f offset = {10 + score, 0};
+    sfVector2f offset = {20 + score, 0};
     sfFloatRect pos = sfSprite_getGlobalBounds(sprite);
     float seconds;
 
@@ -33,7 +33,7 @@ void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
 int handle_play(game_parts *game, target *d, sfText *text, int score)
 {
     handle_move(d->sprite, d->rect, game->clock, score);
-    render(game->window, d);
+    render(game, d);
     sfRenderWindow_drawText(
         game->window, display_score(text, score), NULL);
     sfRenderWindow_display(game->window);

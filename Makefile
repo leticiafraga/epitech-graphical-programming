@@ -28,7 +28,8 @@ NAME	=	my_hunter
 all: $(NAME)
 
 $(NAME):	$(OBJ)
-	gcc -o $(NAME) $(OBJ) -Wall -Wextra -l csfml-graphics -l csfml-system
+	gcc -o $(NAME) $(OBJ) -Wall -Wextra \
+	-l csfml-graphics -l csfml-system
 
 clean:
 	rm -f $(OBJ) *~
