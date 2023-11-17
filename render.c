@@ -22,13 +22,6 @@ void destroy(game_parts *game, target *d)
     free(d->rect);
 }
 
-static void destroy_cursor(target *cursor)
-{
-    sfSprite_destroy(cursor->sprite);
-    sfTexture_destroy(cursor->texture);
-    free(cursor);
-}
-
 void render_cursor(game_parts *game, target *d)
 {
     target *cursor = init_cursor(game);
@@ -44,9 +37,9 @@ void render_cursor(game_parts *game, target *d)
         mousef.y = mouse.y - 21;
         sfSprite_setPosition(cursor->sprite, mousef);
         sfRenderWindow_drawSprite(game->window, cursor->sprite, NULL);
-        destroy_cursor(cursor);
     } else
         sfRenderWindow_setMouseCursorVisible(game->window, sfTrue);
+    destroy_sprite(cursor);
 }
 
 void render(game_parts *game, target *d)
@@ -56,19 +49,4 @@ void render(game_parts *game, target *d)
     sfSprite_setTextureRect(d->sprite, *(d->rect));
     sfRenderWindow_drawSprite(game->window, d->sprite, NULL);
     render_cursor(game, d);
-}
-
-void init_sprite(sfSprite *sprite)
-{
-    sfVector2f init_sprite = {-50, rand() % 500};
-
-    sfSprite_setPosition(sprite, init_sprite);
-}
-
-sfSprite *new_sprite(void)
-{
-    sfSprite *sprite = sfSprite_create();
-
-    init_sprite(sprite);
-    return sprite;
 }

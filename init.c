@@ -48,16 +48,10 @@ target *init_duck(void)
 target *init_menu(void)
 {
     target *d = malloc(sizeof(target));
-    sfIntRect *rect = malloc(sizeof(sfIntRect));
     sfSprite *sprite = sfSprite_create();
     sfVector2f init_sprite = {400 - 55, 300 - 55};
 
     sfSprite_setPosition(sprite, init_sprite);
-    rect->top = 0;
-    rect->left = 0;
-    rect->width = 110;
-    rect->height = 110;
-    d->rect = rect;
     d->texture = sfTexture_createFromFile("assets/start.png", NULL);
     d->sprite = sprite;
     return d;

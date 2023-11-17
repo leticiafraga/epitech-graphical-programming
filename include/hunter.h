@@ -38,5 +38,6 @@ void move_rect(sfIntRect *rect, int offset, int max_value);
 target *init_cursor(game_parts *game);
 void init_sprite(sfSprite *sprite);
 sfSprite *new_sprite(void);
-
+void destroy_sprite(target *spr);
+void render_cursor(game_parts *game, target *d);
 #endif

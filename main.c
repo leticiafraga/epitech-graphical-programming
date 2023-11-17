@@ -40,18 +40,23 @@ int handle_play(game_parts *game, target *d, sfText *text, int score)
     return analyse_events(game, d->sprite);
 }
 
-int handle_menu(game_parts *game, target *menu)
+int handle_menu(game_parts *game)
 {
+    target *menu = init_menu();
+    int state = analyse_menu_events(game, menu);
+
     render_menu(game->window, menu);
+    render_cursor(game, menu);
     sfRenderWindow_display(game->window);
-    return analyse_menu_events(game, menu);
+    state = analyse_menu_events(game, menu);
+    destroy_sprite(menu);
+    return state;
 }
 
 int main(void)
 {
     game_parts *game = init_game();
     target *d = init_duck();
-    target *menu = init_menu();
     sfText* text = init_text();
     int score = 0;
     int state = 0;
@@ -59,7 +64,7 @@ int main(void)
     while (sfRenderWindow_isOpen(game->window)) {
         switch (state) {
             case 0:
-                state = handle_menu(game, menu);
+                state = handle_menu(game);
                 break;
             case 1:
                 score += handle_play(game, d, text, score);
