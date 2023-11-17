@@ -53,7 +53,21 @@ int handle_menu(game_parts *game)
     return state;
 }
 
-int main(void)
+static int validate_args(int ac, char **av)
+{
+    for (int i = 1; i < ac; i++) {
+        if (my_strcmp(av[i], "-h") == 0) {
+            mini_printf("MY HUNTER\nUsage: ./my_hunter [OPTION]\n");
+            mini_printf("Duck Hunt game.\n");
+            mini_printf("With no OPTION, open game.\n");
+            mini_printf("  -h \t\t Shows description and options\n");
+            return 1;
+        }
+    }
+    return 0;
+}
+
+static int start_game(void)
 {
     game_parts *game = init_game();
     target *d = init_duck();
@@ -72,5 +86,13 @@ int main(void)
         }
     }
     destroy(game, d);
+}
+
+int main(int ac, char **av)
+{
+    if (validate_args(ac, av))
+        return 0;
+    else 
+        return start_game();
     return 0;
 }

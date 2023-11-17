@@ -20,6 +20,7 @@ SRC	=	main.c				\
 		lib/my_putstr.c		\
 		lib/my_revstr.c		\
 		lib/my_strcat.c		\
+		lib/my_strcmp.c		\
 		lib/my_strlen.c
 
 OBJ	=	$(SRC:.c=.o)
