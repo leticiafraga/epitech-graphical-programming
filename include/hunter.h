@@ -29,7 +29,7 @@ typedef struct target {
     sfSprite *sprite;
 } target;
 
-void destroy(game_parts *game, target *d);
+void destroy(game_parts *game);
 void render(game_parts *game, target *d);
 game_parts *init_game(void);
 target *init_duck(void);
@@ -45,5 +45,6 @@ spr *init_cursor(game_parts *game);
 void init_sprite(sfSprite *sprite);
 sfSprite *new_sprite(void);
 void destroy_sprite(spr *spr);
+void destroy_target(target *t);
 void render_cursor(game_parts *game, spr *d);
 #endif

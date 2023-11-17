@@ -30,14 +30,20 @@ void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
     }
 }
 
-int handle_play(game_parts *game, target *d, sfText *text, int score)
+int handle_play(game_parts *game, sfText *text, int score)
 {
-    handle_move(d->sprite, d->rect, game->clock, score);
-    render(game, d);
-    sfRenderWindow_drawText(
-        game->window, display_score(text, score), NULL);
-    sfRenderWindow_display(game->window);
-    return analyse_events(game, d->sprite);
+    target *d = init_duck();
+
+    while (sfRenderWindow_isOpen(game->window)) {
+        handle_move(d->sprite, d->rect, game->clock, score);
+        render(game, d);
+        sfRenderWindow_drawText(
+            game->window, display_score(text, score), NULL);
+        sfRenderWindow_display(game->window);
+        score += analyse_events(game, d->sprite);
+    }
+    destroy_target(d);
+    return score;
 }
 
 int handle_menu(game_parts *game)
@@ -70,7 +76,6 @@ static int validate_args(int ac, char **av)
 static int start_game(void)
 {
     game_parts *game = init_game();
-    target *d = init_duck();
     sfText* text = init_text();
     int score = 0;
     int state = 0;
@@ -81,11 +86,11 @@ static int start_game(void)
                 state = handle_menu(game);
                 break;
             case 1:
-                score += handle_play(game, d, text, score);
+                score = handle_play(game, text, score);
                 break;
         }
     }
-    destroy(game, d);
+    destroy(game);
 }
 
 int main(int ac, char **av)
