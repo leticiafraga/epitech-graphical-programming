@@ -42,7 +42,7 @@ int handle_play(game_parts *game, target *d, sfText *text, int score)
 
 int handle_menu(game_parts *game)
 {
-    target *menu = init_menu();
+    spr *menu = init_menu();
     int state = analyse_menu_events(game, menu);
 
     render_menu(game->window, menu);
@@ -92,7 +92,7 @@ int main(int ac, char **av)
 {
     if (validate_args(ac, av))
         return 0;
-    else 
+    else
         return start_game();
     return 0;
 }

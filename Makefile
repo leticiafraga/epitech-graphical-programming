@@ -31,7 +31,7 @@ all: $(NAME)
 
 $(NAME):	$(OBJ)
 	gcc -o $(NAME) $(OBJ) -Wall -Wextra \
-	-l csfml-graphics -l csfml-system
+	-l csfml-graphics -l csfml-system -l csfml-audio
 
 clean:
 	rm -f $(OBJ) *~

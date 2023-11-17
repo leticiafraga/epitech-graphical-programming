@@ -22,9 +22,9 @@ void destroy(game_parts *game, target *d)
     free(d->rect);
 }
 
-void render_cursor(game_parts *game, target *d)
+void render_cursor(game_parts *game, spr *d)
 {
-    target *cursor = init_cursor(game);
+    spr *cursor = init_cursor(game);
     sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
     sfVector2f mousef = {mouse.x, mouse.y};
     sfFloatRect pos = sfSprite_getGlobalBounds(d->sprite);
@@ -44,9 +44,13 @@ void render_cursor(game_parts *game, target *d)
 
 void render(game_parts *game, target *d)
 {
+    spr s;
+
+    s.sprite = d->sprite;
+    s.texture = d->texture;
     sfRenderWindow_clear(game->window, sfBlue);
     sfSprite_setTexture(d->sprite, d->texture, sfTrue);
     sfSprite_setTextureRect(d->sprite, *(d->rect));
     sfRenderWindow_drawSprite(game->window, d->sprite, NULL);
-    render_cursor(game, d);
+    render_cursor(game, &s);
 }

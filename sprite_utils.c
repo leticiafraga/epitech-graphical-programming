@@ -12,7 +12,7 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-void destroy_sprite(target *spr)
+void destroy_sprite(spr *spr)
 {
     sfSprite_destroy(spr->sprite);
     sfTexture_destroy(spr->texture);

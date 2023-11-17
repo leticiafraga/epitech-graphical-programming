@@ -45,9 +45,9 @@ target *init_duck(void)
     return d;
 }
 
-target *init_menu(void)
+spr *init_menu(void)
 {
-    target *d = malloc(sizeof(target));
+    spr *d = malloc(sizeof(spr));
     sfSprite *sprite = sfSprite_create();
     sfVector2f init_sprite = {400 - 55, 300 - 55};
 
@@ -57,9 +57,9 @@ target *init_menu(void)
     return d;
 }
 
-target *init_cursor(game_parts *game)
+spr *init_cursor(game_parts *game)
 {
-    target *d = malloc(sizeof(target));
+    spr *d = malloc(sizeof(spr));
     sfSprite *sprite = sfSprite_create();
 
     d->texture = sfTexture_createFromFile("assets/target.png", NULL);
