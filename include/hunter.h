@@ -37,6 +37,7 @@ sfText* init_text(sfFont* font);
 sfText* init_text_lives(sfFont* font);
 spr *init_menu(void);
 void display_score(sfRenderWindow *window, sfText* text, int score);
+void display_lives(sfRenderWindow *window, sfText *text, int score);
 int analyse_events(game_parts *game, sfSprite *sprite);
 int analyse_menu_events(game_parts *game, spr *menu);
 void render_menu(sfRenderWindow *window, spr *d);

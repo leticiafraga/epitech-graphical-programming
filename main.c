@@ -45,7 +45,7 @@ int handle_play(game_parts *game, int score)
         lives -= handle_move(d->sprite, d->rect, game->clock, score);
         render(game, d);
         display_score(game->window, text_score, score);
-        //display_lives(game->window, text_lives, lives);
+        display_lives(game->window, text_lives, lives);
         sfRenderWindow_display(game->window);
         score += analyse_events(game, d->sprite);
     }

@@ -52,11 +52,10 @@ void display_score(sfRenderWindow *window, sfText* text, int score)
 void display_lives(sfRenderWindow *window, sfText *text, int score)
 {
     char *str = my_nbrtostr(score);
-    char *lives = malloc(sizeof(char) * 4);
+    char *lives = " <3";
 
-    my_strcat(lives, str);
+    my_strcat(str, lives);
     sfText_setString(text, str);
     free(str);
-    free(lives);
     sfRenderWindow_drawText(window, text, NULL);
 }

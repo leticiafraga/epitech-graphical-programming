@@ -19,6 +19,10 @@ static char *get_next(long int nb)
         next = nb % 10;
         cnt++;
     }
+    if (cnt == 0) {
+        str[0] = '0';
+        cnt++;
+    }
     str[cnt] = '\0';
     return my_revstr(str);
 }
