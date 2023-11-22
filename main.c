@@ -38,11 +38,11 @@ int handle_play(game_parts *game, int score)
     target *d = init_duck();
     sfFont *font = sfFont_createFromFile("arial.ttf");
     sfText *text_score = init_text(font);
-    //sfText *text_lives = init_text_lives(font);
-    //int lives = 3;
+    sfText *text_lives = init_text_lives(font);
+    int lives = 3;
 
-    while (sfRenderWindow_isOpen(game->window)) {
-        handle_move(d->sprite, d->rect, game->clock, score);
+    while (sfRenderWindow_isOpen(game->window) && lives > 0) {
+        lives -= handle_move(d->sprite, d->rect, game->clock, score);
         render(game, d);
         display_score(game->window, text_score, score);
         //display_lives(game->window, text_lives, lives);

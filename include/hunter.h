@@ -34,6 +34,7 @@ void render(game_parts *game, target *d);
 game_parts *init_game(void);
 target *init_duck(void);
 sfText* init_text(sfFont* font);
+sfText* init_text_lives(sfFont* font);
 spr *init_menu(void);
 void display_score(sfRenderWindow *window, sfText* text, int score);
 int analyse_events(game_parts *game, sfSprite *sprite);
