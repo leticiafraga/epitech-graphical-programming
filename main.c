@@ -12,10 +12,10 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
+int handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
 {
     sfTime time;
-    sfVector2f offset = {20 + score, 0};
+    sfVector2f offset = {30 + score, 0};
     sfFloatRect pos = sfSprite_getGlobalBounds(sprite);
     float seconds;
 
@@ -25,25 +25,35 @@ void handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
         sfClock_restart(clock);
         move_rect(rect, 110, 330);
         sfSprite_move(sprite, offset);
-        if (pos.left > 700)
+        if (pos.left > 700) {
             init_sprite(sprite);
+            return 1;
+        }
     }
+    return 0;
 }
 
-int handle_play(game_parts *game, sfText *text, int score)
+int handle_play(game_parts *game, int score)
 {
     target *d = init_duck();
+    sfFont *font = sfFont_createFromFile("arial.ttf");
+    sfText *text_score = init_text(font);
+    //sfText *text_lives = init_text_lives(font);
+    //int lives = 3;
 
     while (sfRenderWindow_isOpen(game->window)) {
         handle_move(d->sprite, d->rect, game->clock, score);
         render(game, d);
-        sfRenderWindow_drawText(
-            game->window, display_score(text, score), NULL);
+        display_score(game->window, text_score, score);
+        //display_lives(game->window, text_lives, lives);
         sfRenderWindow_display(game->window);
         score += analyse_events(game, d->sprite);
     }
+    sfRenderWindow_clear(game->window, sfBlue);
     destroy_target(d);
-    return score;
+    sfText_destroy(text_score);
+    sfFont_destroy(font);
+    return 0;
 }
 
 int handle_menu(game_parts *game)
@@ -76,7 +86,6 @@ static int validate_args(int ac, char **av)
 static int start_game(void)
 {
     game_parts *game = init_game();
-    sfText* text = init_text();
     int score = 0;
     int state = 0;
 
@@ -86,7 +95,7 @@ static int start_game(void)
                 state = handle_menu(game);
                 break;
             case 1:
-                score = handle_play(game, text, score);
+                state = handle_play(game, score);
                 break;
         }
     }
