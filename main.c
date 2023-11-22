@@ -33,6 +33,13 @@ int handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
     return 0;
 }
 
+static int display_infos(
+    sfRenderWindow *window, sfText *text_score, int score, life *l)
+{
+    display_score(window, text_score, score);
+    display_lives(window, l);
+}
+
 int handle_play(game_parts *game)
 {
     target *d = init_duck();
@@ -42,8 +49,7 @@ int handle_play(game_parts *game)
 
     while (sfRenderWindow_isOpen(game->window) && l->n > 0) {
         render(game, d);
-        display_score(game->window, text_score, score);
-        display_lives(game->window, l->text_lives, l->n, l->heart);
+        display_infos(game->window, text_score, score, l);
         sfRenderWindow_display(game->window);
         score += analyse_events(game, d->sprite);
         l->n -= handle_move(d->sprite, d->rect, game->clock, score);

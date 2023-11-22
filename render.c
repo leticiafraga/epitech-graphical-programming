@@ -12,22 +12,6 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-void destroy_target(target *t)
-{
-    sfSprite_destroy(t->sprite);
-    sfTexture_destroy(t->texture);
-    free(t->rect);
-    free(t);
-}
-
-void destroy(game_parts *game)
-{
-    sfClock_destroy(game->clock);
-    sfRenderWindow_destroy(game->window);
-    sfFont_destroy(game->font);
-    free(game);
-}
-
 void render_cursor(game_parts *game, spr *d)
 {
     spr *cursor = init_cursor(game);

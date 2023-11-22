@@ -46,8 +46,7 @@ spr *init_heart(void);
 spr *init_menu(void);
 life *init_life(sfFont *font);
 void display_score(sfRenderWindow *window, sfText* text, int score);
-void display_lives(sfRenderWindow *window,
-    sfText *text, int score, spr *heart);
+void display_lives(sfRenderWindow *window, life *l);
 int analyse_events(game_parts *game, sfSprite *sprite);
 int analyse_menu_events(game_parts *game, spr *menu);
 void render_menu(sfRenderWindow *window, spr *d);
