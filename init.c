@@ -52,16 +52,23 @@ target *init_duck(void)
     return d;
 }
 
-spr *init_menu(void)
+spr **init_menu(void)
 {
-    spr *d = malloc(sizeof(spr));
-    sfSprite *sprite = sfSprite_create();
+    spr **menu = malloc(sizeof(spr *) * 2);
     sfVector2f init_sprite = {400 - 55, 300 - 55};
+    sfVector2f init_sprite2 = {400 - 55, 320};
 
-    sfSprite_setPosition(sprite, init_sprite);
-    d->texture = sfTexture_createFromFile("assets/start.png", NULL);
-    d->sprite = sprite;
-    return d;
+    menu[0] = malloc(sizeof(spr));
+    menu[1] = malloc(sizeof(spr));
+    menu[0]->texture = sfTexture_createFromFile("assets/start.png", NULL);
+    menu[0]->sprite = sfSprite_create();
+    menu[1]->texture = sfTexture_createFromFile("assets/start.png", NULL);
+    menu[1]->sprite = sfSprite_create();
+    sfSprite_setPosition(menu[0]->sprite, init_sprite);
+    sfSprite_setPosition(menu[1]->sprite, init_sprite2);
+    sfSprite_setTexture(menu[0]->sprite, menu[0]->texture, sfTrue);
+    sfSprite_setTexture(menu[1]->sprite, menu[1]->texture, sfTrue);
+    return menu;
 }
 
 spr *init_cursor(game_parts *game)

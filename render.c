@@ -12,24 +12,32 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-void render_cursor(game_parts *game, spr *d)
+void set_cursor_target(game_parts *game, sfVector2i mouse)
 {
     spr *cursor = init_cursor(game);
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
     sfVector2f mousef = {mouse.x, mouse.y};
-    sfFloatRect pos = sfSprite_getGlobalBounds(d->sprite);
 
     sfSprite_setTexture(cursor->sprite, cursor->texture, sfTrue);
-    if (sfFloatRect_contains(&pos, mouse.x, mouse.y)) {
-        sfRenderWindow_setMouseCursorVisible(game->window, sfFalse);
-        mouse = sfMouse_getPositionRenderWindow(game->window);
-        mousef.x = mouse.x - 21;
-        mousef.y = mouse.y - 21;
-        sfSprite_setPosition(cursor->sprite, mousef);
-        sfRenderWindow_drawSprite(game->window, cursor->sprite, NULL);
-    } else
-        sfRenderWindow_setMouseCursorVisible(game->window, sfTrue);
+    sfRenderWindow_setMouseCursorVisible(game->window, sfFalse);
+    mouse = sfMouse_getPositionRenderWindow(game->window);
+    mousef.x = mouse.x - 21;
+    mousef.y = mouse.y - 21;
+    sfSprite_setPosition(cursor->sprite, mousef);
+    sfRenderWindow_drawSprite(game->window, cursor->sprite, NULL);
     destroy_sprite(cursor);
+}
+
+int render_cursor(game_parts *game, spr *d)
+{
+    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
+    sfFloatRect pos = sfSprite_getGlobalBounds(d->sprite);
+
+    if (sfFloatRect_contains(&pos, mouse.x, mouse.y)) {
+        set_cursor_target(game, mouse);
+        return 1;
+    }
+    sfRenderWindow_setMouseCursorVisible(game->window, sfTrue);
+    return 0;
 }
 
 void render(game_parts *game, target *d)

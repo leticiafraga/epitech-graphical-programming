@@ -61,16 +61,24 @@ int handle_play(game_parts *game)
     return 0;
 }
 
+static void handle_cursor(game_parts *game, spr **menu)
+{
+    for (int i = 0; i < 2; i++) {
+        if (render_cursor(game, menu[i]))
+            break;
+    }
+}
+
 int handle_menu(game_parts *game)
 {
-    spr *menu = init_menu();
+    spr **menu = init_menu();
     int state = analyse_menu_events(game, menu);
 
     render_menu(game->window, menu);
-    render_cursor(game, menu);
+    handle_cursor(game, menu);
     sfRenderWindow_display(game->window);
     state = analyse_menu_events(game, menu);
-    destroy_sprite(menu);
+    destroy_sprite(menu[0]);
     return state;
 }
 
@@ -99,6 +107,9 @@ static int start_game(void)
                 state = handle_menu(game);
                 break;
             case 1:
+                state = handle_play(game);
+                break;
+            case 2:
                 state = handle_play(game);
                 break;
         }

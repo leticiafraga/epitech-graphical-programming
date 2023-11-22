@@ -46,30 +46,34 @@ int analyse_events(game_parts *game, sfSprite *sprite)
     return 0;
 }
 
-int manage_menu_click(sfMouseButtonEvent event, sfSprite *sprite)
+int manage_menu_click(sfMouseButtonEvent event, spr **menu)
 {
-    sfFloatRect pos = sfSprite_getGlobalBounds(sprite);
+    sfFloatRect pos;
 
-    if (sfFloatRect_contains(&pos, event.x, event.y) == sfTrue) {
-        return 1;
+    for (int i = 0; i < 2; i++) {
+        pos = sfSprite_getGlobalBounds(menu[i]->sprite);
+        if (sfFloatRect_contains(&pos, event.x, event.y) == sfTrue) {
+            return i + 1;
+        }
     }
     return 0;
 }
 
-void render_menu(sfRenderWindow *window, spr *d)
+void render_menu(sfRenderWindow *window, spr **menu)
 {
     sfRenderWindow_clear(window, sfBlue);
-    sfSprite_setTexture(d->sprite, d->texture, sfTrue);
-    sfRenderWindow_drawSprite(window, d->sprite, NULL);
+    for (int i = 0; i < 2; i++) {
+        sfRenderWindow_drawSprite(window, menu[i]->sprite, NULL);
+    }
 }
 
-int analyse_menu_events(game_parts *game, spr *menu)
+int analyse_menu_events(game_parts *game, spr **menu)
 {
     while (sfRenderWindow_pollEvent(game->window, &(game->event))) {
         if (game->event.type == sfEvtClosed)
             close_window(game->window);
         if (game->event.type == sfEvtMouseButtonPressed)
-            return manage_menu_click(game->event.mouseButton, menu->sprite);
+            return manage_menu_click(game->event.mouseButton, menu);
     }
     return 0;
 }
