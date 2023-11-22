@@ -59,14 +59,6 @@ int manage_menu_click(sfMouseButtonEvent event, spr **menu)
     return 0;
 }
 
-void render_menu(sfRenderWindow *window, spr **menu)
-{
-    sfRenderWindow_clear(window, sfBlue);
-    for (int i = 0; i < 2; i++) {
-        sfRenderWindow_drawSprite(window, menu[i]->sprite, NULL);
-    }
-}
-
 int analyse_menu_events(game_parts *game, spr **menu)
 {
     while (sfRenderWindow_pollEvent(game->window, &(game->event))) {

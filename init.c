@@ -55,14 +55,14 @@ target *init_duck(void)
 spr **init_menu(void)
 {
     spr **menu = malloc(sizeof(spr *) * 2);
-    sfVector2f init_sprite = {400 - 55, 300 - 55};
-    sfVector2f init_sprite2 = {400 - 55, 320};
+    sfVector2f init_sprite = {400 - 65, 300 - 55};
+    sfVector2f init_sprite2 = {400 - 100, 320};
 
     menu[0] = malloc(sizeof(spr));
     menu[1] = malloc(sizeof(spr));
     menu[0]->texture = sfTexture_createFromFile("assets/start.png", NULL);
     menu[0]->sprite = sfSprite_create();
-    menu[1]->texture = sfTexture_createFromFile("assets/start.png", NULL);
+    menu[1]->texture = sfTexture_createFromFile("assets/options.png", NULL);
     menu[1]->sprite = sfSprite_create();
     sfSprite_setPosition(menu[0]->sprite, init_sprite);
     sfSprite_setPosition(menu[1]->sprite, init_sprite2);

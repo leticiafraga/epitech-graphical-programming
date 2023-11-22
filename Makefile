@@ -15,6 +15,7 @@ SRC	=	main.c				\
 		sprite_utils.c		\
 		lives.c				\
 		destroy.c			\
+		menu.c				\
 		lib/mini_printf.c	\
 		lib/my_nbrtostr.c	\
 		lib/my_putchar.c	\
