@@ -39,6 +39,7 @@ void render(game_parts *game, target *d)
     s.sprite = d->sprite;
     s.texture = d->texture;
     sfRenderWindow_clear(game->window, sfBlue);
+    sfRenderWindow_drawSprite(game->window, game->bg->sprite, NULL);
     sfSprite_setTexture(d->sprite, d->texture, sfTrue);
     sfSprite_setTextureRect(d->sprite, *(d->rect));
     sfRenderWindow_drawSprite(game->window, d->sprite, NULL);

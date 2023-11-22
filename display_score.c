@@ -16,6 +16,7 @@ sfText* init_text(sfFont* font)
 {
     sfText* text;
     sfVector2f offset = {700, 0};
+    sfColor color = {0, 0, 0, 255};
 
     if (!font)
         return 0;
@@ -23,6 +24,7 @@ sfText* init_text(sfFont* font)
     sfText_setFont(text, font);
     sfText_setCharacterSize(text, 40);
     sfText_setPosition(text, offset);
+    sfText_setColor(text, color);
     return text;
 }
 

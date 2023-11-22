@@ -11,14 +11,6 @@
     #include <SFML/Audio.h>
     #include <stdlib.h>
 
-typedef struct game_parts {
-    sfVideoMode mode;
-    sfRenderWindow *window;
-    sfEvent event;
-    sfClock *clock;
-    sfFont *font;
-} game_parts;
-
 typedef struct spr {
     sfTexture *texture;
     sfSprite *sprite;
@@ -35,6 +27,15 @@ typedef struct life {
     spr *heart;
     int n;
 } life;
+
+typedef struct game_parts {
+    sfVideoMode mode;
+    sfRenderWindow *window;
+    sfEvent event;
+    sfClock *clock;
+    sfFont *font;
+    spr *bg;
+} game_parts;
 
 void destroy(game_parts *game);
 void render(game_parts *game, target *d);
