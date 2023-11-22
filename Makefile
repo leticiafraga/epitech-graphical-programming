@@ -13,6 +13,7 @@ SRC	=	main.c				\
 		close_window.c		\
 		display_score.c		\
 		sprite_utils.c		\
+		lives.c				\
 		lib/mini_printf.c	\
 		lib/my_nbrtostr.c	\
 		lib/my_putchar.c	\

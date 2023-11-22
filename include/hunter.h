@@ -30,6 +30,12 @@ typedef struct target {
     sfSprite *sprite;
 } target;
 
+typedef struct life {
+    sfText *text_lives;
+    spr *heart;
+    int n;
+} life;
+
 void destroy(game_parts *game);
 void render(game_parts *game, target *d);
 game_parts *init_game(void);
@@ -38,6 +44,7 @@ sfText* init_text(sfFont* font);
 sfText* init_text_lives(sfFont* font);
 spr *init_heart(void);
 spr *init_menu(void);
+life *init_life(sfFont *font);
 void display_score(sfRenderWindow *window, sfText* text, int score);
 void display_lives(sfRenderWindow *window,
     sfText *text, int score, spr *heart);
@@ -51,5 +58,6 @@ void init_sprite(sfSprite *sprite);
 sfSprite *new_sprite(void);
 void destroy_sprite(spr *spr);
 void destroy_target(target *t);
+void destroy_life(life *l);
 void render_cursor(game_parts *game, spr *d);
 #endif
