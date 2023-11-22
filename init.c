@@ -32,6 +32,7 @@ game_parts *init_game(void)
     game->window = sfRenderWindow_create(
         mode, "ducks", sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(game->window, 45);
+    game->font = sfFont_createFromFile("arial.ttf");
     return game;
 }
 

@@ -36,23 +36,24 @@ int handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
 int handle_play(game_parts *game, int score)
 {
     target *d = init_duck();
-    sfFont *font = sfFont_createFromFile("arial.ttf");
-    sfText *text_score = init_text(font);
-    sfText *text_lives = init_text_lives(font);
+    sfText *text_score = init_text(game->font);
+    sfText *text_lives = init_text_lives(game->font);
+    spr *heart = init_heart();
     int lives = 3;
 
     while (sfRenderWindow_isOpen(game->window) && lives > 0) {
         lives -= handle_move(d->sprite, d->rect, game->clock, score);
         render(game, d);
         display_score(game->window, text_score, score);
-        display_lives(game->window, text_lives, lives);
+        display_lives(game->window, text_lives, lives, heart);
         sfRenderWindow_display(game->window);
         score += analyse_events(game, d->sprite);
     }
     sfRenderWindow_clear(game->window, sfBlue);
     destroy_target(d);
+    destroy_sprite(heart);
     sfText_destroy(text_score);
-    sfFont_destroy(font);
+    sfText_destroy(text_lives);
     return 0;
 }
 

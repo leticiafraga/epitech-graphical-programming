@@ -24,6 +24,7 @@ void destroy(game_parts *game)
 {
     sfClock_destroy(game->clock);
     sfRenderWindow_destroy(game->window);
+    sfFont_destroy(game->font);
     free(game);
 }
 
