@@ -89,7 +89,7 @@ static int start_game(void)
                 state = handle_play(game);
                 break;
             case 2:
-                state = handle_play(game);
+                state = handle_options(game);
                 break;
         }
     }

@@ -56,10 +56,13 @@ int analyse_events(game_parts *game, sfSprite *sprite);
 void render(game_parts *game, target *d);
 int render_cursor(game_parts *game, spr *d);
 void move_rect(sfIntRect *rect, int offset, int max_value);
+int handle_move(sfSprite *sprite, sfIntRect *rect,
+    sfClock *clock, int score);
 
 int analyse_menu_events(game_parts *game, spr **menu);
 int handle_menu(game_parts *game);
 void render_menu(sfRenderWindow *window, spr **d);
+int handle_options(game_parts *game);
 
 void destroy_sprite(spr *spr);
 void destroy_target(target *t);

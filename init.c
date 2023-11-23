@@ -32,7 +32,7 @@ game_parts *init_game(void)
     game->clock = sfClock_create();
     game->window = sfRenderWindow_create(
         mode, "ducks", sfDefaultStyle, NULL);
-    sfRenderWindow_setFramerateLimit(game->window, 45);
+    sfRenderWindow_setFramerateLimit(game->window, 100);
     game->font = sfFont_createFromFile("arial.ttf");
     game->bg = malloc(sizeof(spr));
     game->bg->sprite = new_sprite();
