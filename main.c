@@ -42,7 +42,7 @@ static int display_infos(
 
 int handle_play(game_parts *game)
 {
-    target *d = init_duck();
+    target *d = game->t;
     sfText *text_score = init_text(game->font);
     life *l = init_life(game->font);
     int score = 0;
@@ -55,7 +55,6 @@ int handle_play(game_parts *game)
         l->n -= handle_move(d->sprite, d->rect, game->clock, score);
     }
     sfRenderWindow_clear(game->window, sfBlue);
-    destroy_target(d);
     destroy_life(l);
     sfText_destroy(text_score);
     return 0;
@@ -102,5 +101,4 @@ int main(int ac, char **av)
         return 0;
     else
         return start_game();
-    return 0;
 }

@@ -36,7 +36,7 @@ int render_cursor(game_parts *game, spr *d)
         set_cursor_target(game, mouse);
         return 1;
     }
-    sfRenderWindow_setMouseCursorVisible(game->window, sfTrue);
+    set_cursor_target(game, mouse);
     return 0;
 }
 

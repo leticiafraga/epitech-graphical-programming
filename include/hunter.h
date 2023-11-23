@@ -35,11 +35,12 @@ typedef struct game_parts {
     sfClock *clock;
     sfFont *font;
     spr *bg;
+    target *t;
 } game_parts;
-
 
 game_parts *init_game(void);
 target *init_duck(void);
+target *init_duck_img(const char *img);
 sfText* init_text(sfFont* font);
 sfText* init_text_lives(sfFont* font);
 spr *init_heart(void);

@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include "include/my.h"
 #include "include/hunter.h"
+#include "include/imgs.h"
 
 static int handle_move_opt(target **opts, sfClock *clock)
 {
@@ -21,7 +22,7 @@ static int handle_move_opt(target **opts, sfClock *clock)
     seconds = time.microseconds / 1000000.0;
     if (seconds > 0.2) {
         sfClock_restart(clock);
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < NUM_OPTS; i++) {
             move_rect(opts[i]->rect, 110, 330);
         }
     }
@@ -43,7 +44,7 @@ static void handle_cursor(game_parts *game, target **menu)
 static void render_opt(sfRenderWindow *window, target **menu)
 {
     sfRenderWindow_clear(window, sfBlue);
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < NUM_OPTS; i++) {
         sfSprite_setTexture(menu[i]->sprite, menu[i]->texture, sfTrue);
         sfSprite_setTextureRect(menu[i]->sprite, *(menu[i]->rect));
         sfRenderWindow_drawSprite(window, menu[i]->sprite, NULL);
@@ -52,14 +53,14 @@ static void render_opt(sfRenderWindow *window, target **menu)
 
 static target **init_opt(void)
 {
-    target **menu = malloc(sizeof(spr *) * 2);
+    target **menu = malloc(sizeof(spr *) * NUM_OPTS);
     sfVector2f pos = {50, 100};
 
-    menu[0] = init_duck();
-    menu[1] = init_duck();
-    sfSprite_setPosition(menu[0]->sprite, pos);
-    pos.x += 150;
-    sfSprite_setPosition(menu[1]->sprite, pos);
+    for (int i = 0; i < NUM_OPTS; i ++) {
+        menu[i] = init_duck_img(IMGS[i]);
+        sfSprite_setPosition(menu[i]->sprite, pos);
+        pos.x += 150;
+    }
     return menu;
 }
 
@@ -67,7 +68,7 @@ static int manage_opt_click(sfMouseButtonEvent event, target **menu)
 {
     sfFloatRect pos;
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < NUM_OPTS; i++) {
         pos = sfSprite_getGlobalBounds(menu[i]->sprite);
         if (sfFloatRect_contains(&pos, event.x, event.y) == sfTrue) {
             return i + 1;
@@ -99,8 +100,11 @@ int handle_options(game_parts *game)
         sfRenderWindow_display(game->window);
         chosen = analyse_opt_events(game, menu);
     }
-    destroy_target(menu[0]);
-    destroy_target(menu[1]);
+    sfTexture_destroy(game->t->texture);
+    game->t->texture = sfTexture_createFromFile(IMGS[chosen - 1], NULL);
+    for (int i = 0 ; i < NUM_OPTS; i++) {
+        destroy_target(menu[i]);
+    }
     free(menu);
     return 0;
 }

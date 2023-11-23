@@ -37,6 +37,7 @@ game_parts *init_game(void)
     game->bg = malloc(sizeof(spr));
     game->bg->sprite = new_sprite();
     game->bg->texture = sfTexture_createFromFile("assets/bg.jpg", NULL);
+    game->t = init_duck();
     sfSprite_setPosition(game->bg->sprite, init_bg);
     sfSprite_setTexture(game->bg->sprite, game->bg->texture, sfTrue);
     return game;
@@ -44,10 +45,15 @@ game_parts *init_game(void)
 
 target *init_duck(void)
 {
+    return init_duck_img("assets/duck.png");
+}
+
+target *init_duck_img(const char *img)
+{
     target *d = malloc(sizeof(target));
 
     d->rect = display_rect();
-    d->texture = sfTexture_createFromFile("assets/duck.png", NULL);
+    d->texture = sfTexture_createFromFile(img, NULL);
     d->sprite = new_sprite();
     return d;
 }
