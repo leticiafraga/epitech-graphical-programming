@@ -41,9 +41,10 @@ static void handle_cursor(game_parts *game, target **menu)
     }
 }
 
-static void render_opt(sfRenderWindow *window, target **menu)
+static void render_opt(sfRenderWindow *window, target **menu, spr *bg)
 {
     sfRenderWindow_clear(window, sfBlue);
+    sfRenderWindow_drawSprite(window, bg->sprite, NULL);
     for (int i = 0; i < NUM_OPTS; i++) {
         sfSprite_setTexture(menu[i]->sprite, menu[i]->texture, sfTrue);
         sfSprite_setTextureRect(menu[i]->sprite, *(menu[i]->rect));
@@ -88,18 +89,8 @@ static int analyse_opt_events(game_parts *game, target **menu)
     return 0;
 }
 
-int handle_options(game_parts *game)
+static int set_new_text(game_parts *game, int chosen, target **menu)
 {
-    target **menu = init_opt();
-    int chosen = 0;
-
-    sfRenderWindow_setMouseCursorVisible(game->window, sfTrue);
-    while (sfRenderWindow_isOpen(game->window) && !chosen) {
-        render_opt(game->window, menu);
-        handle_move_opt(menu, game->clock);
-        sfRenderWindow_display(game->window);
-        chosen = analyse_opt_events(game, menu);
-    }
     sfTexture_destroy(game->t->texture);
     game->t->texture = sfTexture_createFromFile(IMGS[chosen - 1], NULL);
     for (int i = 0 ; i < NUM_OPTS; i++) {
@@ -107,4 +98,21 @@ int handle_options(game_parts *game)
     }
     free(menu);
     return 0;
+}
+
+int handle_options(game_parts *game)
+{
+    target **menu = init_opt();
+    int chosen = 0;
+    spr *bg = init_basic_sprite("assets/bg.jpg", 0, 0);
+
+    sfRenderWindow_setMouseCursorVisible(game->window, sfTrue);
+    while (sfRenderWindow_isOpen(game->window) && !chosen) {
+        render_opt(game->window, menu, bg);
+        handle_move_opt(menu, game->clock);
+        sfRenderWindow_display(game->window);
+        chosen = analyse_opt_events(game, menu);
+    }
+    destroy_sprite(bg);
+    return set_new_text(game, chosen, menu);
 }

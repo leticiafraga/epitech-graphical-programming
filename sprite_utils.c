@@ -19,6 +19,18 @@ void destroy_sprite(spr *spr)
     free(spr);
 }
 
+spr *init_basic_sprite(const char *filename, int x, int y)
+{
+    spr *bg = malloc(sizeof(spr));
+    sfVector2f init_bg = {x, y};
+
+    bg->sprite = new_sprite();
+    bg->texture = sfTexture_createFromFile(filename, NULL);
+    sfSprite_setPosition(bg->sprite, init_bg);
+    sfSprite_setTexture(bg->sprite, bg->texture, sfTrue);
+    return bg;
+}
+
 void init_sprite(sfSprite *sprite)
 {
     sfVector2f init_sprite = {-50, rand() % 500};

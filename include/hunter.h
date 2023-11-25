@@ -47,6 +47,7 @@ spr *init_heart(void);
 target **init_menu(void);
 life *init_life(sfFont *font);
 spr *init_cursor(game_parts *game);
+spr *init_basic_sprite(const char *filename, int x, int y);
 void init_sprite(sfSprite *sprite);
 sfSprite *new_sprite(void);
 
@@ -64,7 +65,7 @@ void set_cursor_target(game_parts *game, sfVector2i mouse);
 
 int analyse_menu_events(game_parts *game, target **menu);
 int handle_menu(game_parts *game);
-void render_menu(sfRenderWindow *window, target **d);
+void render_menu(game_parts *game, target **menu, spr *bg);
 int handle_options(game_parts *game);
 
 void destroy_sprite(spr *spr);
