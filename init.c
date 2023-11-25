@@ -32,19 +32,15 @@ game_parts *init_game(void)
 {
     game_parts *game = malloc(sizeof(game_parts));
     sfVideoMode mode = {800, 600, 32};
-    sfVector2f init_bg = {0, 0};
 
     game->clock = sfClock_create();
     game->window = sfRenderWindow_create(
         mode, "ducks", sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(game->window, 100);
     game->font = sfFont_createFromFile("arial.ttf");
-    game->bg = malloc(sizeof(spr));
-    game->bg->sprite = new_sprite();
-    game->bg->texture = sfTexture_createFromFile("assets/bg.png", NULL);
+    game->bg = init_basic_sprite("assets/bg.png", 0, 0);
     game->t = init_duck();
-    sfSprite_setPosition(game->bg->sprite, init_bg);
-    sfSprite_setTexture(game->bg->sprite, game->bg->texture, sfTrue);
+    game->s = init_sound();
     return game;
 }
 

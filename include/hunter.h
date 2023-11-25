@@ -22,6 +22,11 @@ typedef struct target {
     sfSprite *sprite;
 } target;
 
+typedef struct sound {
+    sfSoundBuffer *buffer;
+    sfSound *sound;
+} sound;
+
 typedef struct life {
     sfText *text_lives;
     spr *heart;
@@ -36,6 +41,7 @@ typedef struct game_parts {
     sfFont *font;
     spr *bg;
     target *t;
+    sound *s;
 } game_parts;
 
 game_parts *init_game(void);
@@ -54,6 +60,10 @@ sfSprite *new_sprite(void);
 void display_score(sfRenderWindow *window, sfText* text, int score);
 void display_lives(sfRenderWindow *window, life *l);
 int analyse_events(game_parts *game, sfSprite *sprite);
+
+sound *init_sound(void);
+void add_sound(const char *filename);
+void play_sound(sound *s);
 
 void render(game_parts *game, target *d);
 int render_cursor(game_parts *game, spr *d);

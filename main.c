@@ -79,6 +79,7 @@ static int start_game(void)
     game_parts *game = init_game();
     int state = 0;
 
+    add_sound("assets/startup.wav");
     while (sfRenderWindow_isOpen(game->window)) {
         switch (state) {
             case 0:

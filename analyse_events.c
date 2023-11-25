@@ -11,25 +11,14 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-static void add_sound(void)
+int manage_mouse_click(game_parts *game, sfSprite *sprite)
 {
-    sfSoundBuffer *buffer = sfSoundBuffer_createFromFile("assets/quack.wav");
-    sfSound *sound = sfSound_create();
-
-    if (buffer) {
-        sfSound_setBuffer(sound, buffer);
-        if (sound)
-            sfSound_play(sound);
-    }
-}
-
-int manage_mouse_click(sfMouseButtonEvent event, sfSprite *sprite)
-{
+    sfMouseButtonEvent event = game->event.mouseButton;
     sfFloatRect pos = sfSprite_getGlobalBounds(sprite);
 
     if (sfFloatRect_contains(&pos, event.x, event.y) == sfTrue) {
         init_sprite(sprite);
-        add_sound();
+        play_sound(game->s);
         return 1;
     }
     return 0;
@@ -41,7 +30,7 @@ int analyse_events(game_parts *game, sfSprite *sprite)
         if (game->event.type == sfEvtClosed)
             close_window(game->window);
         if (game->event.type == sfEvtMouseButtonPressed)
-            return manage_mouse_click(game->event.mouseButton, sprite);
+            return manage_mouse_click(game, sprite);
     }
     return 0;
 }
