@@ -44,7 +44,7 @@ target *init_duck_img(const char *img);
 sfText* init_text(sfFont* font);
 sfText* init_text_lives(sfFont* font);
 spr *init_heart(void);
-spr **init_menu(void);
+target **init_menu(void);
 life *init_life(sfFont *font);
 spr *init_cursor(game_parts *game);
 void init_sprite(sfSprite *sprite);
@@ -57,12 +57,14 @@ int analyse_events(game_parts *game, sfSprite *sprite);
 void render(game_parts *game, target *d);
 int render_cursor(game_parts *game, spr *d);
 void move_rect(sfIntRect *rect, int offset, int max_value);
+void position_rect(sfIntRect *rect, int pos);
 int handle_move(sfSprite *sprite, sfIntRect *rect,
     sfClock *clock, int score);
+void set_cursor_target(game_parts *game, sfVector2i mouse);
 
-int analyse_menu_events(game_parts *game, spr **menu);
+int analyse_menu_events(game_parts *game, target **menu);
 int handle_menu(game_parts *game);
-void render_menu(sfRenderWindow *window, spr **d);
+void render_menu(sfRenderWindow *window, target **d);
 int handle_options(game_parts *game);
 
 void destroy_sprite(spr *spr);

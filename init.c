@@ -12,15 +12,20 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-static sfIntRect *display_rect(void)
+static sfIntRect *display_rect_dim(int w, int h)
 {
     sfIntRect *rect = malloc(sizeof(sfIntRect));
 
     rect->top = 0;
     rect->left = 0;
-    rect->width = 110;
-    rect->height = 110;
+    rect->width = w;
+    rect->height = h;
     return rect;
+}
+
+static sfIntRect *display_rect(void)
+{
+    return display_rect_dim(110, 110);
 }
 
 game_parts *init_game(void)
@@ -58,22 +63,25 @@ target *init_duck_img(const char *img)
     return d;
 }
 
-spr **init_menu(void)
+target **init_menu(void)
 {
-    spr **menu = malloc(sizeof(spr *) * 2);
+    target **menu = malloc(sizeof(spr *) * 2);
     sfVector2f init_sprite = {400 - 65, 300 - 55};
-    sfVector2f init_sprite2 = {400 - 100, 320};
 
-    menu[0] = malloc(sizeof(spr));
-    menu[1] = malloc(sizeof(spr));
-    menu[0]->texture = sfTexture_createFromFile("assets/start.png", NULL);
-    menu[0]->sprite = sfSprite_create();
-    menu[1]->texture = sfTexture_createFromFile("assets/options.png", NULL);
-    menu[1]->sprite = sfSprite_create();
-    sfSprite_setPosition(menu[0]->sprite, init_sprite);
-    sfSprite_setPosition(menu[1]->sprite, init_sprite2);
-    sfSprite_setTexture(menu[0]->sprite, menu[0]->texture, sfTrue);
-    sfSprite_setTexture(menu[1]->sprite, menu[1]->texture, sfTrue);
+    for (int i = 0; i < 2; i++) {
+        menu[i] = malloc(sizeof(spr));
+        menu[i]->sprite = sfSprite_create();
+        sfSprite_setPosition(menu[i]->sprite, init_sprite);
+        init_sprite.y += 55;
+    }
+    menu[0]->texture = sfTexture_createFromFile("assets/start-btn.png", NULL);
+    menu[1]->texture = sfTexture_createFromFile(
+        "assets/options-btn.png", NULL);
+    for (int i = 0; i < 2; i++) {
+        sfSprite_setTexture(menu[i]->sprite, menu[i]->texture, sfTrue);
+        menu[i]->rect = display_rect_dim(143, 44);
+        sfSprite_setTextureRect(menu[i]->sprite, *(menu[i]->rect));
+    }
     return menu;
 }
 

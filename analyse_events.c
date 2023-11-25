@@ -46,7 +46,7 @@ int analyse_events(game_parts *game, sfSprite *sprite)
     return 0;
 }
 
-int manage_menu_click(sfMouseButtonEvent event, spr **menu)
+int manage_menu_click(sfMouseButtonEvent event, target **menu)
 {
     sfFloatRect pos;
 
@@ -59,7 +59,7 @@ int manage_menu_click(sfMouseButtonEvent event, spr **menu)
     return 0;
 }
 
-int analyse_menu_events(game_parts *game, spr **menu)
+int analyse_menu_events(game_parts *game, target **menu)
 {
     while (sfRenderWindow_pollEvent(game->window, &(game->event))) {
         if (game->event.type == sfEvtClosed)
