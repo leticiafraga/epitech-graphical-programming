@@ -57,7 +57,7 @@ static target **init_opt(void)
     target **menu = malloc(sizeof(spr *) * NUM_OPTS);
     sfVector2f pos = {50, 100};
 
-    for (int i = 0; i < NUM_OPTS; i ++) {
+    for (int i = 0; i < NUM_OPTS; i++) {
         menu[i] = init_duck_img(IMGS[i]);
         sfSprite_setPosition(menu[i]->sprite, pos);
         pos.x += 150;
@@ -93,7 +93,7 @@ static int set_new_text(game_parts *game, int chosen, target **menu)
 {
     sfTexture_destroy(game->t->texture);
     game->t->texture = sfTexture_createFromFile(IMGS[chosen - 1], NULL);
-    for (int i = 0 ; i < NUM_OPTS; i++) {
+    for (int i = 0; i < NUM_OPTS; i++) {
         destroy_target(menu[i]);
     }
     free(menu);
@@ -104,7 +104,7 @@ int handle_options(game_parts *game)
 {
     target **menu = init_opt();
     int chosen = 0;
-    spr *bg = init_basic_sprite("assets/bg.jpg", 0, 0);
+    spr *bg = init_basic_sprite("assets/lock-screen.png", 0, 0);
 
     sfRenderWindow_setMouseCursorVisible(game->window, sfTrue);
     while (sfRenderWindow_isOpen(game->window) && !chosen) {

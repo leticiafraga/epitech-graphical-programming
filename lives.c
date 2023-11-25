@@ -51,10 +51,12 @@ spr *init_heart(void)
 void display_lives(sfRenderWindow *window, life *l)
 {
     sfText *text = l->text_lives;
+    sfColor color = {0, 0, 0, 255};
     spr *heart = l->heart;
     char *str = my_nbrtostr(l->n);
 
     sfRenderWindow_drawSprite(window, heart->sprite, NULL);
+    sfText_setColor(text, color);
     sfText_setString(text, str);
     free(str);
     sfRenderWindow_drawText(window, text, NULL);

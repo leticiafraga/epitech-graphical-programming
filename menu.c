@@ -52,7 +52,7 @@ int handle_menu(game_parts *game)
 {
     target **menu = init_menu();
     int state = analyse_menu_events(game, menu);
-    spr *bg = init_basic_sprite("assets/bg.jpg", 0, 0);
+    spr *bg = init_basic_sprite("assets/lock-screen.png", 0, 0);
 
     while (sfRenderWindow_isOpen(game->window) && state == 0) {
         render_menu(game, menu, bg);

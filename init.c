@@ -41,7 +41,7 @@ game_parts *init_game(void)
     game->font = sfFont_createFromFile("arial.ttf");
     game->bg = malloc(sizeof(spr));
     game->bg->sprite = new_sprite();
-    game->bg->texture = sfTexture_createFromFile("assets/bg.jpg", NULL);
+    game->bg->texture = sfTexture_createFromFile("assets/bg.png", NULL);
     game->t = init_duck();
     sfSprite_setPosition(game->bg->sprite, init_bg);
     sfSprite_setTexture(game->bg->sprite, game->bg->texture, sfTrue);
