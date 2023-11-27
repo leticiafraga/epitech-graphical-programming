@@ -62,7 +62,7 @@ target *init_duck_img(const char *img)
 target **init_menu(void)
 {
     target **menu = malloc(sizeof(spr *) * 2);
-    sfVector2f init_sprite = {400 - 65, 300 - 55};
+    sfVector2f init_sprite = {400 - 65, 300};
 
     for (int i = 0; i < 2; i++) {
         menu[i] = malloc(sizeof(spr));

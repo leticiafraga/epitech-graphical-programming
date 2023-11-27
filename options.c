@@ -55,7 +55,7 @@ static void render_opt(sfRenderWindow *window, target **menu, spr *bg)
 static target **init_opt(void)
 {
     target **menu = malloc(sizeof(spr *) * NUM_OPTS);
-    sfVector2f pos = {50, 100};
+    sfVector2f pos = {100, 200};
 
     for (int i = 0; i < NUM_OPTS; i++) {
         menu[i] = init_duck_img(IMGS[i]);
@@ -89,6 +89,21 @@ static int analyse_opt_events(game_parts *game, target **menu)
     return 0;
 }
 
+static sfText* init_text_opt(sfFont* font)
+{
+    sfText* text;
+    sfVector2f offset = {100, 100};
+
+    if (!font)
+        return 0;
+    text = sfText_create();
+    sfText_setFont(text, font);
+    sfText_setCharacterSize(text, 40);
+    sfText_setPosition(text, offset);
+    sfText_setString(text, "Choose a character:");
+    return text;
+}
+
 static int set_new_text(game_parts *game, int chosen, target **menu)
 {
     sfTexture_destroy(game->t->texture);
@@ -105,14 +120,17 @@ int handle_options(game_parts *game)
     target **menu = init_opt();
     int chosen = 0;
     spr *bg = init_basic_sprite("assets/lock-screen.png", 0, 0);
+    sfText *text = init_text_opt(game->font);
 
     sfRenderWindow_setMouseCursorVisible(game->window, sfTrue);
     while (sfRenderWindow_isOpen(game->window) && !chosen) {
         render_opt(game->window, menu, bg);
+        sfRenderWindow_drawText(game->window, text, NULL);
         handle_move_opt(menu, game->clock);
         sfRenderWindow_display(game->window);
         chosen = analyse_opt_events(game, menu);
     }
     destroy_sprite(bg);
+    sfText_destroy(text);
     return set_new_text(game, chosen, menu);
 }

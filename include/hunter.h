@@ -75,7 +75,7 @@ void set_cursor_target(game_parts *game, sfVector2i mouse);
 
 int analyse_menu_events(game_parts *game, target **menu);
 int handle_menu(game_parts *game);
-void render_menu(game_parts *game, target **menu, spr *bg);
+void render_menu(game_parts *game, target **menu, spr *bg, spr *title);
 int handle_options(game_parts *game);
 
 void destroy_sprite(spr *spr);
