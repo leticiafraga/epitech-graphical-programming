@@ -14,7 +14,7 @@
 
 static int move_target(target *t, sfIntRect *rect, int score)
 {
-    sfVector2f offset = {30 + score, 0};
+    sfVector2f offset = {40 + score * 2, 0};
     sfFloatRect pos = sfSprite_getGlobalBounds(t->sprite);
 
     move_rect(rect, 110, 330);
