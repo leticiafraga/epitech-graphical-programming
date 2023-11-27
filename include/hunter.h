@@ -80,6 +80,7 @@ int handle_menu(game_parts *game);
 void render_menu(game_parts *game, target **menu, spr *bg, spr *title);
 int handle_options(game_parts *game);
 int handle_go(game_parts *game);
+int handle_play(game_parts *game);
 
 void destroy_sprite(spr *spr);
 void destroy_target(target *t);

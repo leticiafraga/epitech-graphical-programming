@@ -11,6 +11,7 @@ SRC	=	main.c				\
 		destroy.c			\
 		display_score.c		\
 		duck.c				\
+		game.c				\
 		game_over.c			\
 		init.c				\
 		lives.c				\
