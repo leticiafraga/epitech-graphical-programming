@@ -9,10 +9,14 @@
     #define IMG_H
 
 const char *IMGS[] = {
+    "assets/twitter.png",
+    "assets/linux.png",
+    "assets/duolingo.png",
+    "assets/apple.png",
     "assets/duck.png",
     "assets/red-duck.png",
     "assets/pink-duck.png"
 };
-const int NUM_OPTS = 3;
+const int NUM_OPTS = 7;
 
 #endif

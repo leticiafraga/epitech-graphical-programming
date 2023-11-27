@@ -61,6 +61,10 @@ static target **init_opt(void)
         menu[i] = init_duck_img(IMGS[i]);
         sfSprite_setPosition(menu[i]->sprite, pos);
         pos.x += 150;
+        if (pos.x > 690) {
+            pos.x = 100;
+            pos.y += 150;
+        }
     }
     return menu;
 }
