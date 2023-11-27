@@ -12,22 +12,6 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-static sfIntRect *display_rect_dim(int w, int h)
-{
-    sfIntRect *rect = malloc(sizeof(sfIntRect));
-
-    rect->top = 0;
-    rect->left = 0;
-    rect->width = w;
-    rect->height = h;
-    return rect;
-}
-
-static sfIntRect *display_rect(void)
-{
-    return display_rect_dim(110, 110);
-}
-
 game_parts *init_game(void)
 {
     game_parts *game = malloc(sizeof(game_parts));
@@ -42,21 +26,6 @@ game_parts *init_game(void)
     game->t = init_duck();
     game->s = init_sound();
     return game;
-}
-
-target *init_duck(void)
-{
-    return init_duck_img("assets/duck.png");
-}
-
-target *init_duck_img(const char *img)
-{
-    target *d = malloc(sizeof(target));
-
-    d->rect = display_rect();
-    d->texture = sfTexture_createFromFile(img, NULL);
-    d->sprite = new_sprite();
-    return d;
 }
 
 target **init_menu(void)

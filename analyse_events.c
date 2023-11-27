@@ -58,3 +58,21 @@ int analyse_menu_events(game_parts *game, target **menu)
     }
     return 0;
 }
+
+int analyse_go_events(game_parts *game, target *t)
+{
+    sfFloatRect pos;
+
+    pos = sfSprite_getGlobalBounds(t->sprite);
+    while (sfRenderWindow_pollEvent(game->window, &(game->event))) {
+        if (game->event.type == sfEvtClosed)
+            close_window(game->window);
+        if (game->event.type == sfEvtMouseButtonPressed
+            && sfFloatRect_contains(
+                &pos, game->event.mouseButton.x,
+                game->event.mouseButton.y) == sfTrue) {
+            return 0;
+        }
+    }
+    return 3;
+}

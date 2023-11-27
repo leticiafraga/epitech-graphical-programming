@@ -9,10 +9,10 @@
     #define IMG_H
 
 const char *IMGS[] = {
-    "assets/twitter.png",
     "assets/linux.png",
-    "assets/duolingo.png",
     "assets/apple.png",
+    "assets/twitter.png",
+    "assets/duolingo.png",
     "assets/duck.png",
     "assets/red-duck.png",
     "assets/pink-duck.png"

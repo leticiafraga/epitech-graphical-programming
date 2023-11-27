@@ -57,7 +57,7 @@ int handle_play(game_parts *game)
     sfRenderWindow_clear(game->window, sfBlue);
     destroy_life(l);
     sfText_destroy(text_score);
-    return 0;
+    return 3;
 }
 
 static int validate_args(int ac, char **av)
@@ -80,7 +80,7 @@ static int start_game(void)
     int state = 0;
 
     add_sound("assets/startup.wav");
-    while (sfRenderWindow_isOpen(game->window)) {
+    while (sfRenderWindow_isOpen(game->window))
         switch (state) {
             case 0:
                 state = handle_menu(game);
@@ -91,8 +91,10 @@ static int start_game(void)
             case 2:
                 state = handle_options(game);
                 break;
+            case 3:
+                state = handle_go(game);
+                break;
         }
-    }
     destroy(game);
 }
 

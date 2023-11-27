@@ -59,7 +59,9 @@ sfSprite *new_sprite(void);
 
 void display_score(sfRenderWindow *window, sfText* text, int score);
 void display_lives(sfRenderWindow *window, life *l);
+sfIntRect *display_rect_dim(int w, int h);
 int analyse_events(game_parts *game, sfSprite *sprite);
+int analyse_go_events(game_parts *game, target *t);
 
 sound *init_sound(void);
 void add_sound(const char *filename);
@@ -77,6 +79,7 @@ int analyse_menu_events(game_parts *game, target **menu);
 int handle_menu(game_parts *game);
 void render_menu(game_parts *game, target **menu, spr *bg, spr *title);
 int handle_options(game_parts *game);
+int handle_go(game_parts *game);
 
 void destroy_sprite(spr *spr);
 void destroy_target(target *t);

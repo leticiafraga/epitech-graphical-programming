@@ -10,6 +10,8 @@ SRC	=	main.c				\
 		close_window.c		\
 		destroy.c			\
 		display_score.c		\
+		duck.c				\
+		game_over.c			\
 		init.c				\
 		lives.c				\
 		menu.c				\
