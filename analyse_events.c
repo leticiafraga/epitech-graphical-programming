@@ -11,26 +11,26 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-int manage_mouse_click(game_parts *game, sfSprite *sprite)
+static int manage_mouse_click(game_parts *game, target *t)
 {
     sfMouseButtonEvent event = game->event.mouseButton;
-    sfFloatRect pos = sfSprite_getGlobalBounds(sprite);
+    sfFloatRect pos = sfSprite_getGlobalBounds(t->sprite);
 
     if (sfFloatRect_contains(&pos, event.x, event.y) == sfTrue) {
-        init_sprite(sprite);
+        reinit_target(t);
         play_sound(game->s);
         return 1;
     }
     return 0;
 }
 
-int analyse_events(game_parts *game, sfSprite *sprite)
+int analyse_events(game_parts *game, target *t)
 {
     while (sfRenderWindow_pollEvent(game->window, &(game->event))) {
         if (game->event.type == sfEvtClosed)
             close_window(game->window);
         if (game->event.type == sfEvtMouseButtonPressed)
-            return manage_mouse_click(game, sprite);
+            return manage_mouse_click(game, t);
     }
     return 0;
 }

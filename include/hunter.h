@@ -20,6 +20,7 @@ typedef struct target {
     sfIntRect *rect;
     sfTexture *texture;
     sfSprite *sprite;
+    int reverse;
 } target;
 
 typedef struct sound {
@@ -56,11 +57,13 @@ spr *init_cursor(game_parts *game);
 spr *init_basic_sprite(const char *filename, int x, int y);
 void init_sprite(sfSprite *sprite);
 sfSprite *new_sprite(void);
+void set_rev_target(target *d);
+void reinit_target(target *t);
 
 void display_score(sfRenderWindow *window, sfText* text, int score);
 void display_lives(sfRenderWindow *window, life *l);
 sfIntRect *display_rect_dim(int w, int h);
-int analyse_events(game_parts *game, sfSprite *sprite);
+int analyse_events(game_parts *game, target *t);
 int analyse_go_events(game_parts *game, target *t);
 
 sound *init_sound(void);
@@ -71,7 +74,7 @@ void render(game_parts *game, target *d);
 int render_cursor(game_parts *game, spr *d);
 void move_rect(sfIntRect *rect, int offset, int max_value);
 void position_rect(sfIntRect *rect, int pos);
-int handle_move(sfSprite *sprite, sfIntRect *rect,
+int handle_move(target *t, sfIntRect *rect,
     sfClock *clock, int score);
 void set_cursor_target(game_parts *game, sfVector2i mouse);
 

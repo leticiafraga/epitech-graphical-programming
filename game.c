@@ -12,23 +12,35 @@
 #include "include/my.h"
 #include "include/hunter.h"
 
-int handle_move(sfSprite *sprite, sfIntRect *rect, sfClock *clock, int score)
+static int move_target(target *t, sfIntRect *rect, int score)
+{
+    sfVector2f offset = {30 + score, 0};
+    sfFloatRect pos = sfSprite_getGlobalBounds(t->sprite);
+
+    move_rect(rect, 110, 330);
+    if (t->reverse)
+        offset.x *= -1;
+    sfSprite_move(t->sprite, offset);
+    if ((!t->reverse && pos.left > 700)
+        || (t->reverse && pos.left < 0)) {
+            reinit_target(t);
+            return 1;
+    }
+    return 0;
+}
+
+int handle_move(target *t, sfIntRect *rect, sfClock *clock, int score)
 {
     sfTime time;
-    sfVector2f offset = {30 + score, 0};
-    sfFloatRect pos = sfSprite_getGlobalBounds(sprite);
+    sfSprite *sprite = t->sprite;
     float seconds;
 
     time = sfClock_getElapsedTime(clock);
     seconds = time.microseconds / 1000000.0;
     if (seconds > 0.2) {
         sfClock_restart(clock);
-        move_rect(rect, 110, 330);
-        sfSprite_move(sprite, offset);
-        if (pos.left > 700) {
-            init_sprite(sprite);
+        if (move_target(t, rect, score))
             return 1;
-        }
     }
     return 0;
 }
@@ -51,8 +63,8 @@ int handle_play(game_parts *game)
         render(game, d);
         display_infos(game->window, text_score, score, l);
         sfRenderWindow_display(game->window);
-        score += analyse_events(game, d->sprite);
-        l->n -= handle_move(d->sprite, d->rect, game->clock, score);
+        score += analyse_events(game, d);
+        l->n -= handle_move(d, d->rect, game->clock, score);
     }
     sfRenderWindow_clear(game->window, sfBlue);
     destroy_life(l);

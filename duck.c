@@ -33,6 +33,11 @@ target *init_duck(void)
     return init_duck_img("assets/duck.png");
 }
 
+void set_rev_target(target *d)
+{
+    d->reverse = rand() % 2;
+}
+
 target *init_duck_img(const char *img)
 {
     target *d = malloc(sizeof(target));

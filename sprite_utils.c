@@ -31,6 +31,16 @@ spr *init_basic_sprite(const char *filename, int x, int y)
     return bg;
 }
 
+void reinit_target(target *t)
+{
+    sfVector2f init_sprite = {-50, rand() % 500};
+
+    set_rev_target(t);
+    if (t->reverse)
+        init_sprite.x = 850;
+    sfSprite_setPosition(t->sprite, init_sprite);
+}
+
 void init_sprite(sfSprite *sprite)
 {
     sfVector2f init_sprite = {-50, rand() % 500};

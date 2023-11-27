@@ -43,13 +43,17 @@ int render_cursor(game_parts *game, spr *d)
 void render(game_parts *game, target *d)
 {
     spr s;
+    sfVector2f scale = {1, 1};
 
     s.sprite = d->sprite;
     s.texture = d->texture;
     sfRenderWindow_clear(game->window, sfBlue);
     sfRenderWindow_drawSprite(game->window, game->bg->sprite, NULL);
+    if (d->reverse)
+        scale.x = -1;
     sfSprite_setTexture(d->sprite, d->texture, sfTrue);
     sfSprite_setTextureRect(d->sprite, *(d->rect));
+    sfSprite_setScale(d->sprite, scale);
     sfRenderWindow_drawSprite(game->window, d->sprite, NULL);
     render_cursor(game, &s);
 }
