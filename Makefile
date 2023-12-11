@@ -16,7 +16,6 @@ SRC	=	main.c				\
 		display_score.c		\
 		duck.c				\
 		game.c				\
-		game_over.c			\
 		init.c				\
 		menu.c				\
 		move_rect.c			\

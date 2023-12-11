@@ -61,7 +61,6 @@ void reinit_target(target *t);
 void display_score(sfRenderWindow *window, sfText* text, int score);
 sfIntRect *display_rect_dim(int w, int h);
 int analyse_events(game_parts *game, target *t);
-int analyse_go_events(game_parts *game, target *t);
 
 sound *init_sound(void);
 void add_sound(const char *filename);
@@ -78,7 +77,6 @@ void set_cursor_target(game_parts *game, sfVector2i mouse);
 int analyse_menu_events(game_parts *game, target **menu);
 int handle_menu(game_parts *game);
 void render_menu(game_parts *game, target **menu, spr *bg, spr *title);
-int handle_go(game_parts *game);
 
 void destroy_sprite(spr *spr);
 void destroy_target(target *t);
