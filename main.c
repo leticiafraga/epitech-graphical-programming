@@ -26,7 +26,7 @@ static int validate_args(int ac, char **av)
     return 0;
 }
 
-static int start_game(void)
+static int start_game(char *str)
 {
     game_parts *game = init_game();
     target *d = game->t;
@@ -34,6 +34,7 @@ static int start_game(void)
     sfCircleShape **circles = init_circles(n);
     corner **corners = init_corners(1920, 1080, circles, n);
 
+    handle_file(game, str);
     while (sfRenderWindow_isOpen(game->window)) {
         render(game, d);
         handle_move_circles(corners, circles, game->clock, n);
@@ -50,5 +51,5 @@ int main(int ac, char **av)
     if (validate_args(ac, av))
         return 0;
     else
-        return start_game();
+        return start_game(av[1]);
 }

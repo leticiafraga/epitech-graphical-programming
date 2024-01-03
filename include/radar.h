@@ -10,7 +10,7 @@
     #include <SFML/Graphics.h>
     #include <SFML/Audio.h>
     #include <stdlib.h>
-
+    #include "entities.h"
 
 typedef struct spr {
     sfTexture *texture;
@@ -38,6 +38,8 @@ typedef struct game_parts {
     spr *bg;
     target *t;
     sound *s;
+    airplane **planes;
+    tower **towers;
 } game_parts;
 
 typedef struct corner {
@@ -83,7 +85,6 @@ void destroy_target(target *t);
 void destroy(game_parts *game);
 void close_window(sfRenderWindow* window);
 
-
 sfCircleShape *create_circle(sfVector2f position, float radius);
 int is_intersecting_circles(sfCircleShape *c1, sfCircleShape *c2);
 sfCircleShape **init_circles(int n);
@@ -95,4 +96,7 @@ corner **init_corners(
 int handle_move_circles(
     corner **corners, sfCircleShape **circles, sfClock *clock, int n);
 void check_collisions(corner **corners);
+
+int handle_file(game_parts *game, char *str);
+char **load_lines(char const *filepath, int nb_rows);
 #endif

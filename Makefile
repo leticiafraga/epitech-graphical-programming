@@ -30,7 +30,11 @@ SRC	=	main.c				\
 		lib/my_revstr.c		\
 		lib/my_strcat.c		\
 		lib/my_strcmp.c		\
-		lib/my_strlen.c
+		lib/my_strlen.c		\
+		lib/helpers.c		\
+		lib/my_getnbr.c		\
+		handle_file.c 		\
+		load_lines.c
 
 OBJ	=	$(SRC:.c=.o)
 

@@ -33,6 +33,7 @@ int is_intersecting_circles(sfCircleShape *c1, sfCircleShape *c2)
     };
     float x = to_square(center1.x - center2.x);
     float y = to_square(center1.y - center2.y);
+
     if ((x + y) <= dist_sq)
         return 1;
     return 0;
