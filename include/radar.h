@@ -40,6 +40,8 @@ typedef struct game_parts {
     sound *s;
     airplane **planes;
     tower **towers;
+    int plane_cnt;
+    int tower_cnt;
 } game_parts;
 
 typedef struct corner {

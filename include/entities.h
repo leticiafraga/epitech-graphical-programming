@@ -14,8 +14,8 @@
 typedef struct airplane {
     sfTexture *texture;
     sfSprite *sprite;
-    sfVector2i *departure;
-    sfVector2i *arrival;
+    sfVector2i departure;
+    sfVector2i arrival;
     int speed;
     int delay;
 } airplane;
@@ -23,7 +23,7 @@ typedef struct airplane {
 typedef struct tower {
     sfTexture *texture;
     sfSprite *sprite;
-    sfVector2i *coordinates;
+    sfVector2i coordinates;
     int radius;
 } tower;
 

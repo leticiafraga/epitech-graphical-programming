@@ -19,12 +19,14 @@ game_parts *init_game(void)
 
     game->clock = sfClock_create();
     game->window = sfRenderWindow_create(
-        mode, "ducks", sfDefaultStyle, NULL);
+        mode, "MY_RADAR", sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(game->window, 20);
     game->font = sfFont_createFromFile("arial.ttf");
     game->bg = init_basic_sprite("assets/bg.png", 0, 0);
-    game->t = init_duck();
-    game->s = init_sound();
+    game->planes = malloc(sizeof(airplane *) * 10);
+    game->towers = malloc(sizeof(tower *) * 10);
+    game->plane_cnt = 0;
+    game->tower_cnt = 0;
     return game;
 }
 

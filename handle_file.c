@@ -17,53 +17,95 @@ static int handle_error(int f)
     return 84;
 }
 
-static void get_next_nb(char **str)
+static sfVector2i get_next_nb(char *str, int i)
 {
-    char *new = *str;
-    int n = 0;
-    int found = 0;
+    int result = 0;
+    sfVector2i v = {i, 0};
 
-    while (*new != '\0') {
-        if (is_number(*new) && found == 1)
-            continue;
-        if (!is_number(*new) && found == 1)
-            break;
-        if (is_number(*new)) {
-            n = my_getnbr(new);
-            found = 1;
-        }
-        new++;
+    while (is_number(str[i])) {
+        result = result * 10;
+        result += (str[i] - '0');
+        i++;
     }
-    str = &new;
+    v.x = i;
+    v.y = result;
+    return v;
+}
+
+static void create_struct_plane(game_parts *game, int *info)
+{
+    airplane *plane = malloc(sizeof(airplane));
+
+    game->planes[game->plane_cnt] = plane;
+    game->plane_cnt += 1;
+    plane->departure.x = info[0];
+    plane->departure.y = info[1];
+    plane->arrival.x = info[2];
+    plane->arrival.y = info[3];
+    plane->speed = info[4];
+    plane->delay = info[5];
+}
+
+static void create_struct_tower(game_parts *game, int *info)
+{
+    tower *t = malloc(sizeof(t));
+
+    game->towers[game->tower_cnt] = t;
+    game->tower_cnt += 1;
+    t->coordinates.x = info[0];
+    t->coordinates.y = info[1];
+    t->radius = info[2];
 }
 
 static void create_plane(game_parts *game, char *str)
 {
-    while (*str != '\0') {
-        get_next_nb(&str);
-        str++;
+    sfVector2i result;
+    int i = 0;
+    int it = 0;
+    int info[10];
+
+    while (str[i] != '\0') {
+        if (is_number(str[i])) {
+            result = get_next_nb(str, i);
+            i = result.x;
+            info[it] = result.y;
+            it++;
+        } else
+            i++;
     }
+    create_struct_plane(game, info);
 }
 
 static void create_tower(game_parts *game, char *str)
 {
-    while (*str != '\0') {
-        get_next_nb(&str);
-        str++;
+    sfVector2i result;
+    int i = 0;
+    int it = 0;
+    int info[10];
+
+    while (str[i] != '\0') {
+        if (is_number(str[i])) {
+            result = get_next_nb(str, i);
+            i = result.x;
+            info[it] = result.y;
+            it++;
+        } else
+            i++;
     }
+    create_struct_tower(game, info);
 }
 
 int get_data(game_parts *game, char **map)
 {
     while (*map != 0) {
         switch (**map) {
-            case 'A':
-                create_plane(game, *map);
-                break;
-            case 'T':
-                create_tower(game, *map);
-                break;
-            default:
+        case 'A':
+            create_plane(game, *map);
+            break;
+        case 'T':
+            create_tower(game, *map);
+            break;
+        default:
             break;
         }
         map++;
