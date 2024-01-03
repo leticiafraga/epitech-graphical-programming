@@ -45,6 +45,8 @@ static int start_game(void)
 
 int main(int ac, char **av)
 {
+    if (ac == 1)
+        return 84;
     if (validate_args(ac, av))
         return 0;
     else
