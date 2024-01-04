@@ -20,7 +20,7 @@ game_parts *init_game(void)
     game->clock = sfClock_create();
     game->window = sfRenderWindow_create(
         mode, "MY_RADAR", sfDefaultStyle, NULL);
-    sfRenderWindow_setFramerateLimit(game->window, 20);
+    sfRenderWindow_setFramerateLimit(game->window, 100);
     game->font = sfFont_createFromFile("arial.ttf");
     game->bg = init_basic_sprite("assets/bg.png", 0, 0);
     game->planes = malloc(sizeof(airplane *) * 10);

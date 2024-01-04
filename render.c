@@ -42,5 +42,8 @@ void render(game_parts *game)
     for (int i = 0; i < game->plane_cnt; i++) {
         sfRenderWindow_drawSprite(game->window, game->planes[i]->sprite, NULL);
     }
+    for (int i = 0; i < game->tower_cnt; i++) {
+        sfRenderWindow_drawSprite(game->window, game->towers[i]->sprite, NULL);
+    }
     render_cursor(game);
 }
