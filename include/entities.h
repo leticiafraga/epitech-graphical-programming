@@ -18,6 +18,8 @@ typedef struct airplane {
     sfVector2f arrival;
     int speed;
     int delay;
+    float angle;
+    sfVector2f offset;
 } airplane;
 
 typedef struct tower {

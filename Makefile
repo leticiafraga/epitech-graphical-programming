@@ -34,7 +34,9 @@ SRC	=	main.c				\
 		lib/helpers.c		\
 		lib/my_getnbr.c		\
 		handle_file.c 		\
-		load_lines.c
+		load_lines.c		\
+		handle_move_planes.c	\
+		create_plane.c
 
 OBJ	=	$(SRC:.c=.o)
 
@@ -44,7 +46,7 @@ all: $(NAME)
 
 $(NAME):	$(OBJ)
 	gcc -o $(NAME) $(OBJ) -Wall -Wextra \
-	-l csfml-graphics -l csfml-system -l csfml-audio
+	-l csfml-graphics -l csfml-system -l csfml-audio -lm
 
 clean:
 	rm -f $(OBJ) *~

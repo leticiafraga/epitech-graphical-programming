@@ -35,6 +35,7 @@ static int start_game(char *str)
         render(game);
         sfRenderWindow_display(game->window);
         analyse_events(game);
+        handle_move_planes(game->planes, game->plane_cnt, game->clock);
     }
     destroy(game);
     return 0;

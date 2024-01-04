@@ -95,4 +95,9 @@ void check_collisions(corner **corners);
 
 int handle_file(game_parts *game, char *str);
 char **load_lines(char const *filepath, int nb_rows);
+
+int handle_move_planes(airplane **planes, int n, sfClock *clock);
+sfVector2i get_next_nb(char *str, int i);
+void create_plane(game_parts *game, char *str);
+float radian_to_degree(float radian);
 #endif
