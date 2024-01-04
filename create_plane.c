@@ -17,7 +17,7 @@ static float get_angle(sfVector2f arrival, sfVector2f departure)
     float tan = ((arrival.y - departure.y) / (arrival.x - departure.x));
     float angle = atan(tan);
 
-    if (sin(angle) < 0)
+    if ((arrival.x - departure.x) < 0)
         angle += M_PI;
     return angle;
 }
@@ -28,7 +28,7 @@ static sfVector2f get_offset(airplane *plane)
     sfVector2f departure = plane->departure;
     float angle = plane->angle;
     float speed = plane->speed;
-    float hip = speed / 5;
+    float hip = speed / 10;
     float sy = sin(angle) * hip;
     float sx = cos(angle) * hip;
     sfVector2f offset = {sx, sy};
@@ -46,26 +46,34 @@ static void set_plane_info(airplane *plane, int *info)
     plane->delay = info[5];
 }
 
-static void set_plane_sprite(airplane *plane)
+static void set_rect(airplane *plane, sfVector2f size)
 {
-    sfVector2f scale = {0.1, 0.1};
-    sfVector2f size = {26, 26};
-    sfVector2f initialpos = {plane->departure.x + 13,
-        plane->departure.y + 13};
+    sfVector2f origin = {13, 13};
 
-    plane->sprite = sfSprite_create();
-    plane->texture = sfTexture_createFromFile("assets/plane.png", NULL);
-    plane->rect = sfRectangleShape_create();
-    sfSprite_setTexture(plane->sprite, plane->texture, sfFalse);
-    sfSprite_setScale(plane->sprite, scale);
-    sfSprite_setPosition(plane->sprite, initialpos);
-    sfSprite_setRotation(plane->sprite, radian_to_degree(plane->angle));
-    sfRectangleShape_setPosition(plane->rect, initialpos);
+    sfRectangleShape_setOrigin(plane->rect, origin);
+    sfRectangleShape_setPosition(plane->rect, plane->departure);
     sfRectangleShape_setSize(plane->rect, size);
     sfRectangleShape_setRotation(plane->rect, radian_to_degree(plane->angle));
     sfRectangleShape_setOutlineColor(plane->rect, sfBlack);
     sfRectangleShape_setOutlineThickness(plane->rect, 1);
     sfRectangleShape_setFillColor(plane->rect, sfTransparent);
+}
+
+static void set_plane_sprite(airplane *plane)
+{
+    sfVector2f scale = {0.1, 0.1};
+    sfVector2f size = {26, 26};
+    sfVector2f origin = {120, 120};
+
+    plane->sprite = sfSprite_create();
+    plane->texture = sfTexture_createFromFile("assets/plane.png", NULL);
+    plane->rect = sfRectangleShape_create();
+    sfSprite_setOrigin(plane->sprite, origin);
+    sfSprite_setTexture(plane->sprite, plane->texture, sfFalse);
+    sfSprite_setScale(plane->sprite, scale);
+    sfSprite_setPosition(plane->sprite, plane->departure);
+    sfSprite_setRotation(plane->sprite, radian_to_degree(plane->angle));
+    set_rect(plane, size);
 }
 
 static void create_struct_plane(game_parts *game, int *info)

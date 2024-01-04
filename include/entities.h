@@ -22,6 +22,7 @@ typedef struct airplane {
     sfVector2f offset;
     sfRectangleShape *rect;
     sfRectangleShape *arrival_rect;
+    int state;
 } airplane;
 
 typedef struct tower {

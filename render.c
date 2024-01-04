@@ -35,6 +35,17 @@ int render_cursor(game_parts *game)
     return 0;
 }
 
+void render_plane(sfRenderWindow *window, airplane *plane)
+{
+    if (plane->state != 0)
+        return;
+    sfRenderWindow_drawSprite(window, plane->sprite, NULL);
+    sfRenderWindow_drawRectangleShape(
+        window, plane->rect, NULL);
+    sfRenderWindow_drawRectangleShape(
+        window, plane->arrival_rect, NULL);
+}
+
 void render(game_parts *game)
 {
     sfRenderWindow_clear(game->window, sfBlack);
@@ -43,11 +54,7 @@ void render(game_parts *game)
         sfRenderWindow_drawSprite(game->window, game->towers[i]->sprite, NULL);
     }
     for (int i = 0; i < game->plane_cnt; i++) {
-        sfRenderWindow_drawSprite(game->window, game->planes[i]->sprite, NULL);
-        sfRenderWindow_drawRectangleShape(
-            game->window, game->planes[i]->rect, NULL);
-        sfRenderWindow_drawRectangleShape(
-            game->window, game->planes[i]->arrival_rect, NULL);
+        render_plane(game->window, game->planes[i]);
     }
     render_cursor(game);
 }
