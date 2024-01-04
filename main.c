@@ -34,8 +34,10 @@ static int start_game(char *str)
     while (sfRenderWindow_isOpen(game->window)) {
         render(game);
         sfRenderWindow_display(game->window);
+        analyse_events(game);
     }
     destroy(game);
+    return 0;
 }
 
 int main(int ac, char **av)

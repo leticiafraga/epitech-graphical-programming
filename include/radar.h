@@ -73,6 +73,7 @@ int handle_move(target *t, sfIntRect *rect,
     sfClock *clock, int score);
 void set_cursor_target(game_parts *game, sfVector2i mouse);
 
+int analyse_events(game_parts *game);
 int analyse_menu_events(game_parts *game, target **menu);
 void render_menu(game_parts *game, target **menu, spr *bg, spr *title);
 

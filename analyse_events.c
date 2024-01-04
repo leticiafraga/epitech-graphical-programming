@@ -22,13 +22,13 @@ static int manage_mouse_click(game_parts *game, target *t)
     return 0;
 }
 
-int analyse_events(game_parts *game, target *t)
+int analyse_events(game_parts *game)
 {
     while (sfRenderWindow_pollEvent(game->window, &(game->event))) {
         if (game->event.type == sfEvtClosed)
             close_window(game->window);
         if (game->event.type == sfEvtMouseButtonPressed)
-            return manage_mouse_click(game, t);
+            return 0;
     }
     return 0;
 }

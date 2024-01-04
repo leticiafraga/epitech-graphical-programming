@@ -26,6 +26,5 @@ void destroy(game_parts *game)
     sfRenderWindow_destroy(game->window);
     sfFont_destroy(game->font);
     destroy_sprite(game->bg);
-    destroy_target(game->t);
     free(game);
 }
