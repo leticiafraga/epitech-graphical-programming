@@ -27,26 +27,20 @@ void set_cursor_target(game_parts *game, sfVector2i mouse)
     destroy_sprite(cursor);
 }
 
-int render_cursor(game_parts *game, spr *d)
+int render_cursor(game_parts *game)
 {
     sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
-    sfFloatRect pos = sfSprite_getGlobalBounds(d->sprite);
 
-    if (sfFloatRect_contains(&pos, mouse.x, mouse.y)) {
-        set_cursor_target(game, mouse);
-        return 1;
-    }
     set_cursor_target(game, mouse);
     return 0;
 }
 
-void render(game_parts *game, target *d)
+void render(game_parts *game)
 {
-    spr s;
-    sfVector2f scale = {1, 1};
-
-    s.sprite = d->sprite;
-    s.texture = d->texture;
     sfRenderWindow_clear(game->window, sfBlack);
-    render_cursor(game, &s);
+    sfRenderWindow_drawSprite(game->window, game->bg->sprite, NULL);
+    for (int i = 0; i < game->plane_cnt; i++) {
+        sfRenderWindow_drawSprite(game->window, game->planes[i]->sprite, NULL);
+    }
+    render_cursor(game);
 }

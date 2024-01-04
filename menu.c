@@ -62,8 +62,6 @@ int handle_menu(game_parts *game)
         sfRenderWindow_display(game->window);
         state = analyse_menu_events(game, menu);
     }
-    for (int i = 0; i < 2; i++)
-        destroy_target(menu[i]);
     free(menu);
     destroy_sprite(bg);
     return state;

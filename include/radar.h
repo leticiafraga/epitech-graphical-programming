@@ -51,27 +51,22 @@ typedef struct corner {
 } corner;
 
 game_parts *init_game(void);
-target *init_duck(void);
-target *init_duck_img(const char *img);
 sfText* init_text(sfFont* font);
 target **init_menu(void);
 spr *init_cursor(game_parts *game);
 spr *init_basic_sprite(const char *filename, int x, int y);
 void init_sprite(sfSprite *sprite);
 sfSprite *new_sprite(void);
-void set_rev_target(target *d);
 void reinit_target(target *t);
 
-void display_score(sfRenderWindow *window, sfText* text, int score);
 sfIntRect *display_rect_dim(int w, int h);
-int analyse_events(game_parts *game, target *t);
 
 sound *init_sound(void);
 void add_sound(const char *filename);
 void play_sound(sound *s);
 
-void render(game_parts *game, target *d);
-int render_cursor(game_parts *game, spr *d);
+void render(game_parts *game);
+int render_cursor(game_parts *game);
 void move_rect(sfIntRect *rect, int offset, int max_value);
 void position_rect(sfIntRect *rect, int pos);
 int handle_move(target *t, sfIntRect *rect,
@@ -79,11 +74,9 @@ int handle_move(target *t, sfIntRect *rect,
 void set_cursor_target(game_parts *game, sfVector2i mouse);
 
 int analyse_menu_events(game_parts *game, target **menu);
-int handle_menu(game_parts *game);
 void render_menu(game_parts *game, target **menu, spr *bg, spr *title);
 
 void destroy_sprite(spr *spr);
-void destroy_target(target *t);
 void destroy(game_parts *game);
 void close_window(sfRenderWindow* window);
 

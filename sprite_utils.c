@@ -35,7 +35,6 @@ void reinit_target(target *t)
 {
     sfVector2f init_sprite = {-50, rand() % 500};
 
-    set_rev_target(t);
     if (t->reverse)
         init_sprite.x = 850;
     sfSprite_setPosition(t->sprite, init_sprite);

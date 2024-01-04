@@ -35,6 +35,7 @@ static sfVector2i get_next_nb(char *str, int i)
 static void create_struct_plane(game_parts *game, int *info)
 {
     airplane *plane = malloc(sizeof(airplane));
+    sfVector2f scale = {0.1, 0.1};
 
     game->planes[game->plane_cnt] = plane;
     game->plane_cnt += 1;
@@ -44,6 +45,11 @@ static void create_struct_plane(game_parts *game, int *info)
     plane->arrival.y = info[3];
     plane->speed = info[4];
     plane->delay = info[5];
+    plane->sprite = sfSprite_create();
+    plane->texture = sfTexture_createFromFile("assets/plane.png", NULL);
+    sfSprite_setTexture(plane->sprite, plane->texture, sfFalse);
+    sfSprite_setScale(plane->sprite, scale);
+    sfSprite_setPosition(plane->sprite, plane->departure);
 }
 
 static void create_struct_tower(game_parts *game, int *info)

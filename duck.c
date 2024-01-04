@@ -27,23 +27,3 @@ static sfIntRect *display_rect(void)
 {
     return display_rect_dim(110, 110);
 }
-
-target *init_duck(void)
-{
-    return init_duck_img("assets/duck.png");
-}
-
-void set_rev_target(target *d)
-{
-    d->reverse = rand() % 2;
-}
-
-target *init_duck_img(const char *img)
-{
-    target *d = malloc(sizeof(target));
-
-    d->rect = display_rect();
-    d->texture = sfTexture_createFromFile(img, NULL);
-    d->sprite = new_sprite();
-    return d;
-}

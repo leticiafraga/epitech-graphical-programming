@@ -29,17 +29,11 @@ static int validate_args(int ac, char **av)
 static int start_game(char *str)
 {
     game_parts *game = init_game();
-    target *d = game->t;
-    int n = 500;
-    sfCircleShape **circles = init_circles(n);
-    corner **corners = init_corners(1920, 1080, circles, n);
 
     handle_file(game, str);
     while (sfRenderWindow_isOpen(game->window)) {
-        render(game, d);
-        handle_move_circles(corners, circles, game->clock, n);
-        draw_circles(game->window, circles, n);
-        analyse_events(game, d);
+        render(game);
+        sfRenderWindow_display(game->window);
     }
     destroy(game);
 }
