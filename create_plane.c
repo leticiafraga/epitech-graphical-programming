@@ -36,24 +36,36 @@ static sfVector2f get_offset(airplane *plane)
     return offset;
 }
 
-static void create_struct_plane(game_parts *game, int *info)
+static void set_plane_info(airplane *plane, int *info)
 {
-    airplane *plane = malloc(sizeof(airplane));
-    sfVector2f scale = {0.1, 0.1};
-
     plane->departure.x = info[0];
     plane->departure.y = info[1];
     plane->arrival.x = info[2];
     plane->arrival.y = info[3];
     plane->speed = info[4];
     plane->delay = info[5];
+}
+
+static void set_plane_sprite(airplane *plane)
+{
+    sfVector2f scale = {0.1, 0.1};
+
     plane->sprite = sfSprite_create();
     plane->texture = sfTexture_createFromFile("assets/plane.png", NULL);
     sfSprite_setTexture(plane->sprite, plane->texture, sfFalse);
     sfSprite_setScale(plane->sprite, scale);
     sfSprite_setPosition(plane->sprite, plane->departure);
+    sfSprite_setRotation(plane->sprite, radian_to_degree(plane->angle));
+}
+
+static void create_struct_plane(game_parts *game, int *info)
+{
+    airplane *plane = malloc(sizeof(airplane));
+
+    set_plane_info(plane, info);
     plane->angle = get_angle(plane->arrival, plane->departure);
     plane->offset = get_offset(plane);
+    set_plane_sprite(plane);
     game->planes[game->plane_cnt] = plane;
     game->plane_cnt += 1;
 }
