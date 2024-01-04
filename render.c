@@ -39,11 +39,15 @@ void render(game_parts *game)
 {
     sfRenderWindow_clear(game->window, sfBlack);
     sfRenderWindow_drawSprite(game->window, game->bg->sprite, NULL);
-    for (int i = 0; i < game->plane_cnt; i++) {
-        sfRenderWindow_drawSprite(game->window, game->planes[i]->sprite, NULL);
-    }
     for (int i = 0; i < game->tower_cnt; i++) {
         sfRenderWindow_drawSprite(game->window, game->towers[i]->sprite, NULL);
+    }
+    for (int i = 0; i < game->plane_cnt; i++) {
+        sfRenderWindow_drawSprite(game->window, game->planes[i]->sprite, NULL);
+        sfRenderWindow_drawRectangleShape(
+            game->window, game->planes[i]->rect, NULL);
+        sfRenderWindow_drawRectangleShape(
+            game->window, game->planes[i]->arrival_rect, NULL);
     }
     render_cursor(game);
 }

@@ -20,6 +20,7 @@ static int move_target(airplane *plane)
     sfVector2f pos = sfSprite_getPosition(plane->sprite);
 
     sfSprite_move(plane->sprite, plane->offset);
+    sfRectangleShape_move(plane->rect, plane->offset);
     return 0;
 }
 

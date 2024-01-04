@@ -20,6 +20,8 @@ typedef struct airplane {
     int delay;
     float angle;
     sfVector2f offset;
+    sfRectangleShape *rect;
+    sfRectangleShape *arrival_rect;
 } airplane;
 
 typedef struct tower {

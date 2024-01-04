@@ -49,23 +49,40 @@ static void set_plane_info(airplane *plane, int *info)
 static void set_plane_sprite(airplane *plane)
 {
     sfVector2f scale = {0.1, 0.1};
+    sfVector2f size = {26, 26};
+    sfVector2f initialpos = {plane->departure.x + 13,
+        plane->departure.y + 13};
 
     plane->sprite = sfSprite_create();
     plane->texture = sfTexture_createFromFile("assets/plane.png", NULL);
+    plane->rect = sfRectangleShape_create();
     sfSprite_setTexture(plane->sprite, plane->texture, sfFalse);
     sfSprite_setScale(plane->sprite, scale);
-    sfSprite_setPosition(plane->sprite, plane->departure);
+    sfSprite_setPosition(plane->sprite, initialpos);
     sfSprite_setRotation(plane->sprite, radian_to_degree(plane->angle));
+    sfRectangleShape_setPosition(plane->rect, initialpos);
+    sfRectangleShape_setSize(plane->rect, size);
+    sfRectangleShape_setRotation(plane->rect, radian_to_degree(plane->angle));
+    sfRectangleShape_setOutlineColor(plane->rect, sfBlack);
+    sfRectangleShape_setOutlineThickness(plane->rect, 1);
+    sfRectangleShape_setFillColor(plane->rect, sfTransparent);
 }
 
 static void create_struct_plane(game_parts *game, int *info)
 {
     airplane *plane = malloc(sizeof(airplane));
+    sfVector2f size = {4, 4};
 
     set_plane_info(plane, info);
     plane->angle = get_angle(plane->arrival, plane->departure);
     plane->offset = get_offset(plane);
     set_plane_sprite(plane);
+    plane->arrival_rect = sfRectangleShape_create();
+    sfRectangleShape_setPosition(plane->arrival_rect, plane->arrival);
+    sfRectangleShape_setSize(plane->arrival_rect, size);
+    sfRectangleShape_setOutlineColor(plane->arrival_rect, sfBlack);
+    sfRectangleShape_setOutlineThickness(plane->arrival_rect, 1);
+    sfRectangleShape_setFillColor(plane->arrival_rect, sfTransparent);
     game->planes[game->plane_cnt] = plane;
     game->plane_cnt += 1;
 }
