@@ -30,6 +30,7 @@ typedef struct tower {
     sfSprite *sprite;
     sfVector2f coordinates;
     int radius;
+    sfCircleShape *circle;
 } tower;
 
 #endif

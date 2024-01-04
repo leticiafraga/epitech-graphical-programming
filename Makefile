@@ -36,7 +36,8 @@ SRC	=	main.c				\
 		handle_file.c 		\
 		load_lines.c		\
 		handle_move_planes.c	\
-		create_plane.c
+		create_plane.c		\
+		create_tower.c
 
 OBJ	=	$(SRC:.c=.o)
 
