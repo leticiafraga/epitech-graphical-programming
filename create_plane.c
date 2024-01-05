@@ -95,7 +95,7 @@ void create_plane(game_parts *game, char *str)
     sfVector2i result;
     int i = 0;
     int it = 0;
-    int info[10];
+    int info[6];
 
     while (str[i] != '\0') {
         if (is_number(str[i])) {

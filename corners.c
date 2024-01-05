@@ -12,13 +12,6 @@
 #include "include/my.h"
 #include "include/radar.h"
 
-sfColor colors[4] = {
-    {255, 0, 0, 255},
-    {0, 255, 0, 255},
-    {0, 0, 255, 255},
-    {255, 255, 0, 255},
-};
-
 int is_intersecting_corners(sfIntRect c1, sfRectangleShape *c2)
 {
     sfVector2f size1 = {c1.width, c1.height};

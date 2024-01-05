@@ -27,7 +27,19 @@ static int validate_args(int ac, char **av)
     return 0;
 }
 
-static int start_game(char *str)
+static int game_loop(game_parts *game, corner **corners, sfText *timer)
+{
+    render(game);
+    display_timer(game->window, timer, game->timer);
+    sfRenderWindow_display(game->window);
+    analyse_events(game);
+    handle_move_planes(game->planes,
+        game->plane_cnt, game->clock, game->window);
+    set_planes_corner(corners, game->planes, game->plane_cnt);
+    check_collisions(corners, game->towers, game->tower_cnt);
+}
+
+static int start_sim(char *str)
 {
     game_parts *game = init_game();
     corner **corners;
@@ -38,17 +50,17 @@ static int start_game(char *str)
         return 84;
     corners = init_corners(1920, 1080, game->planes, game->plane_cnt);
     while (sfRenderWindow_isOpen(game->window)) {
-        render(game);
-        display_timer(game->window, timer, game->timer);
-        sfRenderWindow_display(game->window);
-        analyse_events(game);
-        handle_move_planes(game->planes,
-            game->plane_cnt, game->clock, game->window);
-        set_planes_corner(corners, game->planes, game->plane_cnt);
-        check_collisions(corners, game->towers, game->tower_cnt);
+        game_loop(game, corners, timer);
     }
     destroy(game, corners);
     return 0;
+}
+
+static int simulation(char *str)
+{
+    if (validate_file(str))
+        return 84;
+    return start_sim(str);
 }
 
 int main(int ac, char **av)
@@ -60,6 +72,7 @@ int main(int ac, char **av)
     }
     if (validate_args(ac, av))
         return 0;
-    else
-        return start_game(av[1]);
+    else {
+        return simulation(av[1]);
+    }
 }

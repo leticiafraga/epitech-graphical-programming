@@ -99,4 +99,11 @@ int is_intersecting_planes(sfRectangleShape *c1, sfRectangleShape *c2);
 int is_intersecting_tower(sfRectangleShape *plane, tower *t);
 
 void display_timer(sfRenderWindow *window, sfText* text, sfClock *timer);
+int validate_file(char *str);
+
+int put_error_file(void);
+int put_error_file_format(void);
+sfVector2i get_next_nb(char *str, int i);
+float radian_to_degree(float radian);
+
 #endif
