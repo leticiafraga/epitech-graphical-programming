@@ -42,6 +42,7 @@ typedef struct game_parts {
     int plane_cnt;
     int tower_cnt;
     int show_hitbox;
+    int show_sprites;
 } game_parts;
 
 typedef struct corner {

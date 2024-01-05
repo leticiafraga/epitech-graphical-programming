@@ -52,7 +52,8 @@ static void render_plane(game_parts *game, airplane *plane,
     }
     if (plane->state != 0)
         return;
-    sfRenderWindow_drawSprite(window, plane->sprite, NULL);
+    if (game->show_sprites == 1)
+        sfRenderWindow_drawSprite(window, plane->sprite, NULL);
     if (game->show_hitbox == 1)
         sfRenderWindow_drawRectangleShape(
             window, plane->rect, NULL);
@@ -60,7 +61,8 @@ static void render_plane(game_parts *game, airplane *plane,
 
 static void render_tower(game_parts *game, tower *t)
 {
-    sfRenderWindow_drawSprite(game->window, t->sprite, NULL);
+    if (game->show_sprites == 1)
+        sfRenderWindow_drawSprite(game->window, t->sprite, NULL);
     if (game->show_hitbox == 1)
         sfRenderWindow_drawCircleShape(
             game->window, t->circle, NULL);

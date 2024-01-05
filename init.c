@@ -29,6 +29,7 @@ game_parts *init_game(file_cnt *cnt)
     game->plane_cnt = 0;
     game->tower_cnt = 0;
     game->show_hitbox = 1;
+    game->show_sprites = 1;
     return game;
 }
 

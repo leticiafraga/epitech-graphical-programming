@@ -17,6 +17,8 @@ static int manage_key_click(game_parts *game)
 
     if (key.code == sfKeyL)
         game->show_hitbox *= -1;
+    else if (key.code == sfKeyS)
+        game->show_sprites *= -1;
     return 0;
 }
 

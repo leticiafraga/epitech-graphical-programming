@@ -23,6 +23,7 @@ static int validate_args(int ac, char **av)
             mini_printf("  -h \t\tprint the usage and quit.\n");
             mini_printf("USER INTERACTIONS\n");
             mini_printf("  'L' key\tenable/disable hitboxes and areas.\n");
+            mini_printf("  'S' key\tenable/disable sprites.\n");
             return 1;
         }
     }
