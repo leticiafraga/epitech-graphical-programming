@@ -12,18 +12,19 @@
 #include "include/my.h"
 #include "include/radar.h"
 
-static void check_intersections(airplane *circle)
+static void check_intersections(airplane *plane1, airplane *plane2)
 {
-    if (is_intersecting_planes(circle->rect, circle->rect) == 1) {
-        //
+    if (is_intersecting_planes(plane1->rect, plane2->rect) == 1) {
+        plane1->state = 2;
+        plane2->state = 2;
     }
 }
 
-static void check_collisions_circles(airplane **circles, int n)
+static void check_collisions_planes(airplane **circles, int n)
 {
     for (int i = 0; i < n - 1; i++) {
         for (int j = i + 1; j < n; j++) {
-            check_intersections(circles[i]);
+            check_intersections(circles[i], circles[j]);
         }
     }
 }
@@ -31,7 +32,7 @@ static void check_collisions_circles(airplane **circles, int n)
 void check_collisions(corner **corners)
 {
     for (int i = 0; i < 4; i++) {
-        check_collisions_circles(corners[i]->circles, corners[i]->nb_circles);
+        check_collisions_planes(corners[i]->circles, corners[i]->nb_circles);
     }
 }
 

@@ -77,7 +77,7 @@ static void it_corners(
     }
 }
 
-int set_circles_corner(corner **corners, airplane **planes, int n)
+int set_planes_corner(corner **corners, airplane **planes, int n)
 {
     sfVector2f pos;
 

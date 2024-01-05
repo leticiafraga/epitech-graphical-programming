@@ -85,7 +85,7 @@ sfCircleShape *create_circle(sfVector2f position, float radius);
 sfCircleShape **init_circles(int n);
 void mv_circles(sfCircleShape **circles, int n);
 void draw_circles(sfRenderWindow *window, sfCircleShape **circles, int n);
-int set_circles_corner(corner **corners, airplane **circles, int n);
+int set_planes_corner(corner **corners, airplane **circles, int n);
 corner **init_corners(
     int width, int height, airplane **circles, int n);
 void check_collisions(corner **corners);

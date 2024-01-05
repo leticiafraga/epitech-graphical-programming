@@ -39,7 +39,7 @@ static int start_game(char *str)
         sfRenderWindow_display(game->window);
         analyse_events(game);
         handle_move_planes(game->planes, game->plane_cnt, game->clock);
-        set_circles_corner(corners, game->planes, game->plane_cnt);
+        set_planes_corner(corners, game->planes, game->plane_cnt);
         check_collisions(corners);
     }
     destroy(game);
