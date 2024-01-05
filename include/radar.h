@@ -69,8 +69,6 @@ void render(game_parts *game);
 int render_cursor(game_parts *game);
 void move_rect(sfIntRect *rect, int offset, int max_value);
 void position_rect(sfIntRect *rect, int pos);
-int handle_move(target *t, sfIntRect *rect,
-    sfClock *clock, int score);
 void set_cursor_target(game_parts *game, sfVector2i mouse);
 
 int analyse_events(game_parts *game);
@@ -81,10 +79,6 @@ void destroy_sprite(spr *spr);
 void destroy(game_parts *game);
 void close_window(sfRenderWindow* window);
 
-sfCircleShape *create_circle(sfVector2f position, float radius);
-sfCircleShape **init_circles(int n);
-void mv_circles(sfCircleShape **circles, int n);
-void draw_circles(sfRenderWindow *window, sfCircleShape **circles, int n);
 int set_planes_corner(corner **corners, airplane **circles, int n);
 corner **init_corners(
     int width, int height, airplane **circles, int n);

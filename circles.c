@@ -35,36 +35,3 @@ void check_collisions(corner **corners)
         check_collisions_planes(corners[i]->circles, corners[i]->nb_circles);
     }
 }
-
-sfCircleShape **init_circles(int n)
-{
-    sfCircleShape **all_circles = malloc(sizeof(sfCircleShape *) * n);
-    sfVector2f position;
-
-    for (int i = 0; i < n; i++) {
-        position.x = rand() % 1900;
-        position.y = rand() % 1080;
-        all_circles[i] = create_circle(position, 10);
-    }
-    return all_circles;
-}
-
-void mv_circles(sfCircleShape **circles, int n)
-{
-    sfVector2f offset;
-
-    for (int i = 0; i < n; i++) {
-        offset.x += (rand() % 3) - 1;
-        offset.y += (rand() % 3) - 1;
-        sfCircleShape_move(circles[i], offset);
-        sfCircleShape_setFillColor(circles[i], sfTransparent);
-    }
-}
-
-void draw_circles(sfRenderWindow *window, sfCircleShape **circles, int n)
-{
-    for (int i = 0; i < n; i++) {
-        sfRenderWindow_drawCircleShape(window, circles[i], NULL);
-    }
-    sfRenderWindow_display(window);
-}

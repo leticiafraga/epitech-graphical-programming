@@ -6,7 +6,6 @@
 ##
 
 SRC	=	main.c				\
-		create_circle.c		\
 		is_intersecting_circles.c \
 		analyse_events.c	\
 		close_window.c		\
@@ -15,7 +14,6 @@ SRC	=	main.c				\
 		destroy.c			\
 		display_score.c		\
 		duck.c				\
-		game.c				\
 		init.c				\
 		menu.c				\
 		move_rect.c			\
