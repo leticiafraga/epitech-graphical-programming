@@ -39,14 +39,14 @@ static int game_loop(game_parts *game, corner **corners, sfText *timer)
     check_collisions(corners, game->towers, game->tower_cnt);
 }
 
-static int start_sim(char *str)
+static int start_sim(char *str, file_cnt *cnt)
 {
-    game_parts *game = init_game();
+    game_parts *game = init_game(cnt);
     corner **corners;
     sfRectangleShape **rects;
     sfText* timer = init_text(game->font);
 
-    if (handle_file(game, str))
+    if (handle_file(game, str, cnt))
         return 84;
     corners = init_corners(1920, 1080, game->planes, game->plane_cnt);
     while (sfRenderWindow_isOpen(game->window)) {
@@ -58,9 +58,14 @@ static int start_sim(char *str)
 
 static int simulation(char *str)
 {
-    if (validate_file(str))
+    file_cnt *cnt = validate_file(str);
+    int res = 0;
+
+    if (cnt == 0)
         return 84;
-    return start_sim(str);
+    res = start_sim(str, cnt);
+    free(cnt);
+    return res;
 }
 
 int main(int ac, char **av)

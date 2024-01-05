@@ -12,7 +12,7 @@
 #include "include/my.h"
 #include "include/radar.h"
 
-static int validate_plane(char *str)
+static int validate_plane(char *str, file_cnt *cnt)
 {
     sfVector2i result;
     int i = 0;
@@ -28,10 +28,12 @@ static int validate_plane(char *str)
         } else
             i++;
     }
+    if (it == 6)
+        cnt->plane_cnt += 1;
     return (it == 6) ? 0 : 84;
 }
 
-static int validate_tower(char *str)
+static int validate_tower(char *str, file_cnt *cnt)
 {
     sfVector2i result;
     int i = 0;
@@ -47,44 +49,64 @@ static int validate_tower(char *str)
         } else
             i++;
     }
+    if (it == 3)
+        cnt->tower_cnt += 1;
     return (it == 3) ? 0 : 84;
 }
 
-int validate_data(char **map)
+static int it_map(char **map, file_cnt *cnt)
 {
     int err = 0;
 
+    switch (**map) {
+        case 'A':
+            err = validate_plane(*map, cnt);
+            break;
+        case 'T':
+            err = validate_tower(*map, cnt);
+            break;
+        default:
+            err = 84;
+            break;
+    }
+    return err;
+}
+
+int validate_data(char **map, file_cnt *cnt)
+{
     while (*map != 0) {
-        switch (**map) {
-            case 'A':
-                err = validate_plane(*map);
-                break;
-            case 'T':
-                err = validate_tower(*map);
-                break;
-            default:
-                err = 84;
-                break;
-        }
-        map++;
-        if (err)
+        if (it_map(map, cnt))
             return put_error_file_format();
+        map++;
     }
     return 0;
 }
 
-int validate_file(char *str)
+file_cnt *init_cnt(void)
 {
-    int f;
-    char **map;
-    int res = 0;
+    file_cnt *cnt = malloc(sizeof(file_cnt));
 
-    f = open(str, O_RDONLY);
-    if (f < 0)
-        return put_error_file();
-    map = load_lines(str, 100);
-    if (validate_data(map))
-        res = 84;
+    cnt->plane_cnt = 0;
+    cnt->tower_cnt = 0;
+    return cnt;
+}
+
+file_cnt *validate_file(char *str)
+{
+    int f = open(str, O_RDONLY);
+    char **map;
+    file_cnt *cnt = init_cnt();
+
+    if (f < 0) {
+        put_error_file();
+        free(cnt);
+        return 0;
+    }
+    map = load_lines(str, 3000);
+    if (validate_data(map, cnt)) {
+        free(cnt);
+        cnt = 0;
+    }
     close(f);
-    return res;
+    return cnt;
 }

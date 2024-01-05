@@ -32,4 +32,9 @@ typedef struct tower {
     sfCircleShape *circle;
 } tower;
 
+typedef struct file_cnt {
+    int plane_cnt;
+    int tower_cnt;
+} file_cnt;
+
 #endif

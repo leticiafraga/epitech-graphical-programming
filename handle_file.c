@@ -37,7 +37,7 @@ int get_data(game_parts *game, char **map)
     return 0;
 }
 
-int handle_file(game_parts *game, char *str)
+int handle_file(game_parts *game, char *str, file_cnt* cnt)
 {
     int f;
     char **map;
@@ -46,7 +46,7 @@ int handle_file(game_parts *game, char *str)
     f = open(str, O_RDONLY);
     if (f < 0)
         return put_error_file();
-    map = load_lines(str, 100);
+    map = load_lines(str, cnt->plane_cnt + cnt->tower_cnt + 1);
     if (get_data(game, map))
         res = 84;
     close(f);

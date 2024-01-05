@@ -18,7 +18,7 @@ char *read_line(int f, int nb_cols)
     int n;
 
     n = read(f, &c, 1);
-    while (c != '\0' && c != '\n' && n > 0) {
+    while (c != '\0' && c != '\n' && n > 0 && i < nb_cols) {
         str[i] = c;
         n = read(f, &c, 1);
         i++;
@@ -35,7 +35,7 @@ char **load_lines(char const *filepath, int nb_rows)
 {
     int fd = open(filepath, O_RDONLY);
     char str[30001];
-    char **res = malloc(sizeof(char *) * nb_rows);
+    char **res = malloc(sizeof(char *) * 30001);
     int len;
     int r;
     int nb_cols = 100;

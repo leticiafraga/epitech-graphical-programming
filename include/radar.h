@@ -51,7 +51,7 @@ typedef struct corner {
     airplane **circles;
 } corner;
 
-game_parts *init_game(void);
+game_parts *init_game(file_cnt *cnt);
 sfText* init_text(sfFont* font);
 target **init_menu(void);
 spr *init_cursor(game_parts *game);
@@ -85,7 +85,8 @@ corner **init_corners(
     int width, int height, airplane **circles, int n);
 void check_collisions(corner **corners, tower **towers, int tower_cnt);
 
-int handle_file(game_parts *game, char *str);
+file_cnt *validate_file(char *str);
+int handle_file(game_parts *game, char *str, file_cnt* cnt);
 char **load_lines(char const *filepath, int nb_rows);
 
 int handle_move_planes(airplane **planes, int n, sfClock *clock,
@@ -99,7 +100,6 @@ int is_intersecting_planes(sfRectangleShape *c1, sfRectangleShape *c2);
 int is_intersecting_tower(sfRectangleShape *plane, tower *t);
 
 void display_timer(sfRenderWindow *window, sfText* text, sfClock *timer);
-int validate_file(char *str);
 
 int put_error_file(void);
 int put_error_file_format(void);
