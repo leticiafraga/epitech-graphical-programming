@@ -53,7 +53,6 @@ typedef struct corner {
 
 game_parts *init_game(file_cnt *cnt);
 sfText* init_text(sfFont* font);
-spr *init_cursor(game_parts *game);
 spr *init_basic_sprite(const char *filename, int x, int y);
 void init_sprite(sfSprite *sprite);
 sfSprite *new_sprite(void);
@@ -65,10 +64,8 @@ void add_sound(const char *filename);
 void play_sound(sound *s);
 
 void render(game_parts *game);
-int render_cursor(game_parts *game);
 void move_rect(sfIntRect *rect, int offset, int max_value);
 void position_rect(sfIntRect *rect, int pos);
-void set_cursor_target(game_parts *game, sfVector2i mouse);
 
 int analyse_events(game_parts *game);
 

@@ -32,13 +32,3 @@ game_parts *init_game(file_cnt *cnt)
     game->show_sprites = 1;
     return game;
 }
-
-spr *init_cursor(game_parts *game)
-{
-    spr *d = malloc(sizeof(spr));
-    sfSprite *sprite = sfSprite_create();
-
-    d->texture = sfTexture_createFromFile("assets/target.png", NULL);
-    d->sprite = sprite;
-    return d;
-}
