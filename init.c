@@ -18,6 +18,7 @@ game_parts *init_game(void)
     sfVideoMode mode = {1920, 1080, 32};
 
     game->clock = sfClock_create();
+    game->timer = sfClock_create();
     game->window = sfRenderWindow_create(
         mode, "MY_RADAR", sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(game->window, 100);

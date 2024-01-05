@@ -31,11 +31,13 @@ static int start_game(char *str)
     game_parts *game = init_game();
     corner **corners;
     sfRectangleShape **rects;
+    sfText* timer = init_text(game->font);
 
     handle_file(game, str);
     corners = init_corners(1920, 1080, game->planes, game->plane_cnt);
     while (sfRenderWindow_isOpen(game->window)) {
         render(game);
+        display_timer(game->window, timer, game->timer);
         sfRenderWindow_display(game->window);
         analyse_events(game);
         handle_move_planes(game->planes,

@@ -12,7 +12,7 @@ SRC	=	main.c				\
 		circles.c			\
 		corners.c			\
 		destroy.c			\
-		display_score.c		\
+		display_timer.c		\
 		duck.c				\
 		init.c				\
 		menu.c				\
@@ -31,6 +31,7 @@ SRC	=	main.c				\
 		lib/my_strlen.c		\
 		lib/helpers.c		\
 		lib/my_getnbr.c		\
+		lib/my_getfloat.c	\
 		handle_file.c 		\
 		load_lines.c		\
 		handle_move_planes.c	\

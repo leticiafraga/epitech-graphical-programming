@@ -18,5 +18,6 @@ char *my_strcat(char *dest, char const *src);
 int my_strcmp(char const *s1, char const *s2);
 int is_number(char c);
 int my_getnbr(char const *str);
+char *my_getfloat(double nb, int precision);
 
 #endif

@@ -15,8 +15,8 @@
 sfText* init_text(sfFont* font)
 {
     sfText* text;
-    sfVector2f offset = {700, 0};
-    sfColor color = {0, 0, 0, 255};
+    sfVector2f offset = {1700, 0};
+    sfColor color = {0, 0, 0, 200};
 
     if (!font)
         return 0;
@@ -28,10 +28,17 @@ sfText* init_text(sfFont* font)
     return text;
 }
 
-void display_score(sfRenderWindow *window, sfText* text, int score)
+void display_timer(sfRenderWindow *window, sfText* text, sfClock *timer)
 {
-    char *str = my_nbrtostr(score);
+    sfTime time;
+    sfSprite *sprite;
+    float seconds;
+    int all_states = 0;
+    char *str;
 
+    time = sfClock_getElapsedTime(timer);
+    seconds = time.microseconds / 1000000.0;
+    str = my_getfloat(seconds, 2);
     sfText_setString(text, str);
     free(str);
     sfRenderWindow_drawText(window, text, NULL);

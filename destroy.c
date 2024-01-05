@@ -57,6 +57,7 @@ void destroy(game_parts *game, corner **corners)
     destroy_planes(game->planes, game->plane_cnt);
     destroy_towers(game->towers, game->tower_cnt);
     sfClock_destroy(game->clock);
+    sfClock_destroy(game->timer);
     sfRenderWindow_destroy(game->window);
     sfFont_destroy(game->font);
     destroy_sprite(game->bg);

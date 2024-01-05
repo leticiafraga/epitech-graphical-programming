@@ -34,6 +34,7 @@ typedef struct game_parts {
     sfRenderWindow *window;
     sfEvent event;
     sfClock *clock;
+    sfClock *timer;
     sfFont *font;
     spr *bg;
     target *t;
@@ -96,4 +97,6 @@ float radian_to_degree(float radian);
 
 int is_intersecting_planes(sfRectangleShape *c1, sfRectangleShape *c2);
 int is_intersecting_tower(sfRectangleShape *plane, tower *t);
+
+void display_timer(sfRenderWindow *window, sfText* text, sfClock *timer);
 #endif
