@@ -28,18 +28,18 @@ static void set_circle(tower *t)
 
 static void set_tower_sprite(tower *t)
 {
-    sfVector2f scale = {0.01 * t->radius, 0.01 * t->radius};
+    sfVector2f scale = {0.05, 0.05};
     sfVector2u text;
-    sfVector2f origin;
+    sfVector2f pos;
 
     t->sprite = sfSprite_create();
     t->texture = sfTexture_createFromFile("assets/tower.png", NULL);
     text = sfTexture_getSize(t->texture);
-    origin.x = t->coordinates.x - (text.x / 20);
-    origin.y = t->coordinates.y - (text.y / 20);
+    pos.x = t->coordinates.x - (text.x * (scale.x / 2));
+    pos.y = t->coordinates.y - (text.y * (scale.x / 2));
     sfSprite_setTexture(t->sprite, t->texture, sfFalse);
     sfSprite_setScale(t->sprite, scale);
-    sfSprite_setPosition(t->sprite, origin);
+    sfSprite_setPosition(t->sprite, pos);
     set_circle(t);
 }
 

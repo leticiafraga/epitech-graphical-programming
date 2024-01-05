@@ -29,13 +29,18 @@ static int validate_args(int ac, char **av)
 static int start_game(char *str)
 {
     game_parts *game = init_game();
+    corner **corners;
+    sfRectangleShape **rects;
 
     handle_file(game, str);
+    corners = init_corners(1920, 1080, game->planes, game->plane_cnt);
     while (sfRenderWindow_isOpen(game->window)) {
         render(game);
         sfRenderWindow_display(game->window);
         analyse_events(game);
         handle_move_planes(game->planes, game->plane_cnt, game->clock);
+        set_circles_corner(corners, game->planes, game->plane_cnt);
+        check_collisions(corners);
     }
     destroy(game);
     return 0;

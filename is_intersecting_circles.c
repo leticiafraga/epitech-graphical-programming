@@ -17,24 +17,18 @@ float to_square(float n)
     return n * n;
 }
 
-int is_intersecting_circles(sfCircleShape *c1, sfCircleShape *c2)
+int is_intersecting_planes(sfRectangleShape *c1, sfRectangleShape *c2)
 {
-    sfVector2f p1 = sfCircleShape_getPosition(c1);
-    sfVector2f p2 = sfCircleShape_getPosition(c2);
-    float dist_sq = to_square(
-        (sfCircleShape_getRadius(c1) + sfCircleShape_getRadius(c2)));
-    sfVector2f center1 = {
-        p1.x + sfCircleShape_getRadius(c1),
-        p1.y + sfCircleShape_getRadius(c1)
-    };
-    sfVector2f center2 = {
-        p2.x + sfCircleShape_getRadius(c2),
-        p2.y + sfCircleShape_getRadius(c2)
-    };
-    float x = to_square(center1.x - center2.x);
-    float y = to_square(center1.y - center2.y);
+    sfVector2f size1 = sfRectangleShape_getSize(c1);
+    sfVector2f size2 = sfRectangleShape_getSize(c2);
+    sfVector2f p1 = sfRectangleShape_getPosition(c1);
+    sfVector2f p2 = sfRectangleShape_getPosition(c2);
+    sfVector2f actual1 = {p1.x - (size1.x / 2), p1.y - (size1.y / 2)};
+    sfVector2f actual2 = {p2.x - (size2.x / 2), p2.y - (size2.y / 2)};
+    int collision_x = (actual1.x - size1.x) >= actual2.x &&
+        (actual2.x - size2.x) >= actual1.x;
+    int collision_y = (actual1.y - size1.y) >= actual2.y &&
+        (actual2.y - size2.y) >= actual1.y;
 
-    if ((x + y) <= dist_sq)
-        return 1;
-    return 0;
+    return collision_x && collision_y;
 }

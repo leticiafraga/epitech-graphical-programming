@@ -13,7 +13,7 @@
 #include "include/my.h"
 #include "include/radar.h"
 
-static int contains(sfRectangleShape *rect, sfVector2f point)
+int contains(sfRectangleShape *rect, sfVector2f point)
 {
     sfVector2f pos = sfRectangleShape_getPosition(rect);
     sfVector2f size = {30, 30};

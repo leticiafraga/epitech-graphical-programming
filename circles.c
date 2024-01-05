@@ -12,14 +12,18 @@
 #include "include/my.h"
 #include "include/radar.h"
 
-static void check_collisions_circles(sfCircleShape **circles, int n)
+static void check_intersections(airplane *circle)
+{
+    if (is_intersecting_planes(circle->rect, circle->rect) == 1) {
+        //
+    }
+}
+
+static void check_collisions_circles(airplane **circles, int n)
 {
     for (int i = 0; i < n - 1; i++) {
         for (int j = i + 1; j < n; j++) {
-            if (is_intersecting_circles(circles[i], circles[j]) == 1) {
-                sfCircleShape_setFillColor(circles[i], sfWhite);
-                sfCircleShape_setFillColor(circles[j], sfWhite);
-            }
+            check_intersections(circles[i]);
         }
     }
 }
@@ -62,21 +66,4 @@ void draw_circles(sfRenderWindow *window, sfCircleShape **circles, int n)
         sfRenderWindow_drawCircleShape(window, circles[i], NULL);
     }
     sfRenderWindow_display(window);
-}
-
-int handle_move_circles(
-    corner **corners, sfCircleShape **circles, sfClock *clock, int n)
-{
-    sfTime time;
-    float seconds;
-
-    time = sfClock_getElapsedTime(clock);
-    seconds = time.microseconds / 1000000.0;
-    if (seconds > 0.1) {
-        sfClock_restart(clock);
-        mv_circles(circles, n);
-        set_circles_corner(corners, circles, n);
-        check_collisions(corners);
-    }
-    return 0;
 }
