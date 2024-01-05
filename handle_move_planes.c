@@ -37,22 +37,26 @@ static int move_target(airplane *plane)
     if (contains(plane->rect, plane->arrival)) {
         plane->state = 1;
     }
-    return 0;
+    return 1;
 }
 
-int handle_move_planes(airplane **planes, int n, sfClock *clock)
+int handle_move_planes(airplane **planes, int n, sfClock *clock,
+    sfRenderWindow *window)
 {
     sfTime time;
     sfSprite *sprite;
     float seconds;
+    int all_states = 0;
 
     time = sfClock_getElapsedTime(clock);
     seconds = time.microseconds / 1000000.0;
     if (seconds > 0.1) {
         sfClock_restart(clock);
         for (int i = 0; i < n; i ++) {
-            move_target(planes[i]);
+            all_states += move_target(planes[i]);
         }
+        if (all_states == 0)
+            close_window(window);
     }
     return 0;
 }

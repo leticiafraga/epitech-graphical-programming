@@ -38,11 +38,12 @@ static int start_game(char *str)
         render(game);
         sfRenderWindow_display(game->window);
         analyse_events(game);
-        handle_move_planes(game->planes, game->plane_cnt, game->clock);
+        handle_move_planes(game->planes,
+            game->plane_cnt, game->clock, game->window);
         set_planes_corner(corners, game->planes, game->plane_cnt);
-        check_collisions(corners);
+        check_collisions(corners, game->towers, game->tower_cnt);
     }
-    destroy(game);
+    destroy(game, corners);
     return 0;
 }
 

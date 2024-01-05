@@ -12,33 +12,6 @@
 #include "include/my.h"
 #include "include/radar.h"
 
-int render_cursor_menu(game_parts *game, target *d)
-{
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(game->window);
-    sfFloatRect pos = sfSprite_getGlobalBounds(d->sprite);
-
-    if (sfFloatRect_contains(&pos, mouse.x, mouse.y)) {
-        position_rect(d->rect, 143);
-        sfSprite_setTextureRect(d->sprite, *(d->rect));
-        sfRenderWindow_drawSprite(game->window, d->sprite, NULL);
-        set_cursor_target(game, mouse);
-        return 1;
-    }
-    position_rect(d->rect, 0);
-    sfSprite_setTextureRect(d->sprite, *(d->rect));
-    sfRenderWindow_drawSprite(game->window, d->sprite, NULL);
-    set_cursor_target(game, mouse);
-    return 0;
-}
-
-static void handle_cursor(game_parts *game, target **menu)
-{
-    for (int i = 0; i < 2; i++) {
-        if (render_cursor_menu(game, menu[i]))
-            break;
-    }
-}
-
 void render_menu(game_parts *game, target **menu, spr *bg, spr *title)
 {
     sfRenderWindow_clear(game->window, sfBlack);
@@ -58,7 +31,6 @@ int handle_menu(game_parts *game)
 
     while (sfRenderWindow_isOpen(game->window) && state == 0) {
         render_menu(game, menu, bg, title);
-        handle_cursor(game, menu);
         sfRenderWindow_display(game->window);
         state = analyse_menu_events(game, menu);
     }

@@ -23,8 +23,8 @@ game_parts *init_game(void)
     sfRenderWindow_setFramerateLimit(game->window, 100);
     game->font = sfFont_createFromFile("arial.ttf");
     game->bg = init_basic_sprite("assets/bg.png", 0, 0);
-    game->planes = malloc(sizeof(airplane *) * 10);
-    game->towers = malloc(sizeof(tower *) * 10);
+    game->planes = malloc(sizeof(airplane *) * 100);
+    game->towers = malloc(sizeof(tower *) * 100);
     game->plane_cnt = 0;
     game->tower_cnt = 0;
     return game;

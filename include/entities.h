@@ -21,7 +21,6 @@ typedef struct airplane {
     float angle;
     sfVector2f offset;
     sfRectangleShape *rect;
-    sfRectangleShape *arrival_rect;
     int state;
 } airplane;
 

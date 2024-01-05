@@ -17,6 +17,16 @@ float to_square(float n)
     return n * n;
 }
 
+int is_intersecting_tower(sfRectangleShape *plane, tower *t)
+{
+    sfVector2f pos = sfRectangleShape_getPosition(plane);
+    sfVector2f distance = {to_square(pos.x - t->coordinates.x),
+        to_square(pos.y - t->coordinates.y)};
+    float radius_sq = to_square(t->radius);
+
+    return distance.x < radius_sq && distance.y < radius_sq;
+}
+
 int is_intersecting_planes(sfRectangleShape *c1, sfRectangleShape *c2)
 {
     sfVector2f size1 = sfRectangleShape_getSize(c1);

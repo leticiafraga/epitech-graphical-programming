@@ -82,15 +82,10 @@ static void create_struct_plane(game_parts *game, int *info)
     sfVector2f size = {4, 4};
 
     set_plane_info(plane, info);
+    plane->state = 0;
     plane->angle = get_angle(plane->arrival, plane->departure);
     plane->offset = get_offset(plane);
     set_plane_sprite(plane);
-    plane->arrival_rect = sfRectangleShape_create();
-    sfRectangleShape_setPosition(plane->arrival_rect, plane->arrival);
-    sfRectangleShape_setSize(plane->arrival_rect, size);
-    sfRectangleShape_setOutlineColor(plane->arrival_rect, sfBlack);
-    sfRectangleShape_setOutlineThickness(plane->arrival_rect, 1);
-    sfRectangleShape_setFillColor(plane->arrival_rect, sfTransparent);
     game->planes[game->plane_cnt] = plane;
     game->plane_cnt += 1;
 }

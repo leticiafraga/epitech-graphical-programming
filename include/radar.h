@@ -76,21 +76,24 @@ int analyse_menu_events(game_parts *game, target **menu);
 void render_menu(game_parts *game, target **menu, spr *bg, spr *title);
 
 void destroy_sprite(spr *spr);
-void destroy(game_parts *game);
+void destroy(game_parts *game, corner **corners);
 void close_window(sfRenderWindow* window);
 
 int set_planes_corner(corner **corners, airplane **circles, int n);
 corner **init_corners(
     int width, int height, airplane **circles, int n);
-void check_collisions(corner **corners);
+void check_collisions(corner **corners, tower **towers, int tower_cnt);
 
 int handle_file(game_parts *game, char *str);
 char **load_lines(char const *filepath, int nb_rows);
 
-int handle_move_planes(airplane **planes, int n, sfClock *clock);
+int handle_move_planes(airplane **planes, int n, sfClock *clock,
+    sfRenderWindow *window);
 sfVector2i get_next_nb(char *str, int i);
 void create_plane(game_parts *game, char *str);
 void create_tower(game_parts *game, char *str);
 float radian_to_degree(float radian);
+
 int is_intersecting_planes(sfRectangleShape *c1, sfRectangleShape *c2);
+int is_intersecting_tower(sfRectangleShape *plane, tower *t);
 #endif

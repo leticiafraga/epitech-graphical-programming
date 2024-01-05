@@ -42,8 +42,6 @@ void render_plane(sfRenderWindow *window, airplane *plane)
     sfRenderWindow_drawSprite(window, plane->sprite, NULL);
     sfRenderWindow_drawRectangleShape(
         window, plane->rect, NULL);
-    sfRenderWindow_drawRectangleShape(
-        window, plane->arrival_rect, NULL);
 }
 
 void render(game_parts *game)
