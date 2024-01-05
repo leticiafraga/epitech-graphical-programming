@@ -19,7 +19,6 @@ SRC	=	main.c				\
 		move_rect.c			\
 		render.c			\
 		sprite_utils.c		\
-		sound.c				\
 		lib/mini_printf.c	\
 		lib/my_nbrtostr.c	\
 		lib/my_putchar.c	\

@@ -37,12 +37,11 @@ typedef struct game_parts {
     sfClock *timer;
     sfFont *font;
     spr *bg;
-    target *t;
-    sound *s;
     airplane **planes;
     tower **towers;
     int plane_cnt;
     int tower_cnt;
+    int show_hitbox;
 } game_parts;
 
 typedef struct corner {

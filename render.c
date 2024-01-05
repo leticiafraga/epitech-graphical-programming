@@ -42,17 +42,28 @@ int render_cursor(game_parts *game)
     return 0;
 }
 
-void render_plane(sfRenderWindow *window, airplane *plane,
+static void render_plane(game_parts *game, airplane *plane,
     float seconds)
 {
+    sfRenderWindow *window = game->window;
+
     if (plane->state == -1 && plane->delay <= seconds) {
         plane->state = 0;
     }
     if (plane->state != 0)
         return;
     sfRenderWindow_drawSprite(window, plane->sprite, NULL);
-    sfRenderWindow_drawRectangleShape(
-        window, plane->rect, NULL);
+    if (game->show_hitbox == 1)
+        sfRenderWindow_drawRectangleShape(
+            window, plane->rect, NULL);
+}
+
+static void render_tower(game_parts *game, tower *t)
+{
+    sfRenderWindow_drawSprite(game->window, t->sprite, NULL);
+    if (game->show_hitbox == 1)
+        sfRenderWindow_drawCircleShape(
+            game->window, t->circle, NULL);
 }
 
 void render(game_parts *game)
@@ -62,12 +73,10 @@ void render(game_parts *game)
     sfRenderWindow_clear(game->window, sfBlack);
     sfRenderWindow_drawSprite(game->window, game->bg->sprite, NULL);
     for (int i = 0; i < game->tower_cnt; i++) {
-        sfRenderWindow_drawSprite(game->window, game->towers[i]->sprite, NULL);
-        sfRenderWindow_drawCircleShape(
-        game->window, game->towers[i]->circle, NULL);
+        render_tower(game, game->towers[i]);
     }
     for (int i = 0; i < game->plane_cnt; i++) {
-        render_plane(game->window, game->planes[i], seconds);
+        render_plane(game, game->planes[i], seconds);
     }
     render_cursor(game);
 }

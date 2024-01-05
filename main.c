@@ -21,6 +21,8 @@ static int validate_args(int ac, char **av)
             mini_printf("  path_to_script The path to the script file.\n");
             mini_printf("OPTIONS\n");
             mini_printf("  -h \t\tprint the usage and quit.\n");
+            mini_printf("USER INTERACTIONS\n");
+            mini_printf("  'L' key\tenable/disable hitboxes and areas.\n");
             return 1;
         }
     }
