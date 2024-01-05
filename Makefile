@@ -32,6 +32,7 @@ SRC	=	main.c				\
 		lib/helpers.c		\
 		lib/my_getnbr.c		\
 		lib/my_getfloat.c	\
+		lib/my_put_err.c	\
 		handle_file.c 		\
 		load_lines.c		\
 		handle_move_planes.c	\

@@ -12,6 +12,12 @@
 #include "include/my.h"
 #include "include/radar.h"
 
+static int put_error_file(void)
+{
+    my_put_err("./my_radar: bad arguments: file not found\n");
+    return 84;
+}
+
 static int handle_error(int f)
 {
     close(f);
@@ -57,9 +63,10 @@ int handle_file(game_parts *game, char *str)
 
     f = open(str, O_RDONLY);
     if (f < 0)
-        return 84;
+        return put_error_file();
     map = load_lines(str, 100);
     get_data(game, map);
+    close(f);
     return 0;
 }
 

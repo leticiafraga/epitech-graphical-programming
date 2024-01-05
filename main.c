@@ -16,10 +16,11 @@ static int validate_args(int ac, char **av)
 {
     for (int i = 1; i < ac; i++) {
         if (my_strcmp(av[i], "-h") == 0) {
-            mini_printf("MY RADAR\nUsage: ./my_radar [OPTION]\n");
-            mini_printf("Flight Radar Simulator.\n");
-            mini_printf("With no OPTION, open game.\n");
-            mini_printf("  -h \t\t Shows description and options\n");
+            mini_printf("MY RADAR\nAir traffic simulation panel\n\n");
+            mini_printf("USAGE\n  ./my_radar [OPTIONS] path_to_script\n");
+            mini_printf("  path_to_script The path to the script file.\n");
+            mini_printf("OPTIONS\n");
+            mini_printf("  -h \t\tprint the usage and quit.\n");
             return 1;
         }
     }
@@ -33,7 +34,8 @@ static int start_game(char *str)
     sfRectangleShape **rects;
     sfText* timer = init_text(game->font);
 
-    handle_file(game, str);
+    if (handle_file(game, str))
+        return 84;
     corners = init_corners(1920, 1080, game->planes, game->plane_cnt);
     while (sfRenderWindow_isOpen(game->window)) {
         render(game);
@@ -51,8 +53,11 @@ static int start_game(char *str)
 
 int main(int ac, char **av)
 {
-    if (ac == 1)
+    if (ac == 1) {
+        my_put_err("./my_radar: bad arguments: 0 given but 1 is required\n");
+        my_put_err("retry with -h\n");
         return 84;
+    }
     if (validate_args(ac, av))
         return 0;
     else
