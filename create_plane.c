@@ -28,7 +28,7 @@ static sfVector2f get_offset(airplane *plane)
     sfVector2f departure = plane->departure;
     float angle = plane->angle;
     float speed = plane->speed;
-    float hip = speed / 10;
+    float hip = speed / 20;
     float sy = sin(angle) * hip;
     float sx = cos(angle) * hip;
     sfVector2f offset = {sx, sy};
@@ -48,7 +48,7 @@ static void set_plane_info(airplane *plane, int *info)
 
 static void set_rect(airplane *plane, sfVector2f size)
 {
-    sfVector2f origin = {13, 13};
+    sfVector2f origin = {10, 10};
 
     sfRectangleShape_setOrigin(plane->rect, origin);
     sfRectangleShape_setPosition(plane->rect, plane->departure);
@@ -61,8 +61,8 @@ static void set_rect(airplane *plane, sfVector2f size)
 
 static void set_plane_sprite(airplane *plane)
 {
-    sfVector2f scale = {0.1, 0.1};
-    sfVector2f size = {26, 26};
+    sfVector2f scale = {0.075, 0.075};
+    sfVector2f size = {20, 20};
     sfVector2f origin = {120, 120};
 
     plane->sprite = sfSprite_create();
@@ -82,7 +82,7 @@ static void create_struct_plane(game_parts *game, int *info)
     sfVector2f size = {4, 4};
 
     set_plane_info(plane, info);
-    plane->state = 0;
+    plane->state = plane->delay ? -1 : 0;
     plane->angle = get_angle(plane->arrival, plane->departure);
     plane->offset = get_offset(plane);
     set_plane_sprite(plane);

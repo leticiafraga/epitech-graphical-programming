@@ -12,6 +12,13 @@
 #include "include/my.h"
 #include "include/radar.h"
 
+static float get_seconds(sfClock *timer)
+{
+    sfTime time = sfClock_getElapsedTime(timer);
+
+    return time.microseconds / 1000000.0;
+}
+
 void set_cursor_target(game_parts *game, sfVector2i mouse)
 {
     spr *cursor = init_cursor(game);
@@ -35,8 +42,12 @@ int render_cursor(game_parts *game)
     return 0;
 }
 
-void render_plane(sfRenderWindow *window, airplane *plane)
+void render_plane(sfRenderWindow *window, airplane *plane,
+    float seconds)
 {
+    if (plane->state == -1 && plane->delay <= seconds) {
+        plane->state = 0;
+    }
     if (plane->state != 0)
         return;
     sfRenderWindow_drawSprite(window, plane->sprite, NULL);
@@ -46,6 +57,8 @@ void render_plane(sfRenderWindow *window, airplane *plane)
 
 void render(game_parts *game)
 {
+    float seconds = get_seconds(game->timer);
+
     sfRenderWindow_clear(game->window, sfBlack);
     sfRenderWindow_drawSprite(game->window, game->bg->sprite, NULL);
     for (int i = 0; i < game->tower_cnt; i++) {
@@ -54,7 +67,7 @@ void render(game_parts *game)
         game->window, game->towers[i]->circle, NULL);
     }
     for (int i = 0; i < game->plane_cnt; i++) {
-        render_plane(game->window, game->planes[i]);
+        render_plane(game->window, game->planes[i], seconds);
     }
     render_cursor(game);
 }
