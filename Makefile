@@ -15,7 +15,6 @@ SRC	=	main.c				\
 		display_timer.c		\
 		duck.c				\
 		init.c				\
-		menu.c				\
 		move_rect.c			\
 		render.c			\
 		sprite_utils.c		\
