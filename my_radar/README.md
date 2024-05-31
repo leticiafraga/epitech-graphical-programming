@@ -1,6 +1,6 @@
 # MY_RADAR
 
-2D visualization panel showing a simulatation of air traffic (AT).
+2D visualization panel showing a simulation of air traffic (AT).
 
 There are 2 types of entities:
 - aircrafts,
